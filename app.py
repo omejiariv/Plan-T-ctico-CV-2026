@@ -1,141 +1,187 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
-# Configuración de la página
+# Configuración avanzada de la página
 st.set_page_config(
-    page_title="Plan Táctico de Seguridad Hídrica - CuencaVerde",
+    page_title="SIHT-CV | Plan Táctico CuencaVerde",
     page_icon="💧",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Estilos personalizados para reflejar la identidad técnica y ambiental
+# Estilos CSS Avanzados para emular un Dashboard de Inteligencia Hidro-Territorial
 st.markdown("""
     <style>
-    .main-title { font-size: 32px; font-weight: bold; color: #1E3A8A; }
-    .subtitle { font-size: 18px; color: #4B5563; margin-bottom: 20px; }
-    .metric-box { background-color: #F3F4F6; padding: 15px; border-radius: 8px; border-left: 5px solid #3B82F6; }
+    /* Cambiar fondo y tipografías */
+    .stApp { background-color: #F8FAFC; }
+    h1, h2, h3 { color: #0F172A; font-family: 'Helvetica Neue', sans-serif; }
+    
+    /* Contenedores destacados (Cards) */
+    .metric-card {
+        background-color: #FFFFFF;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+        border-top: 4px solid #0284C7;
+        text-align: center;
+    }
+    .metric-val { font-size: 36px; font-weight: 800; color: #0369A1; margin: 10px 0; }
+    
+    /* Alertas customizadas */
+    .vulnerabilidad-box {
+        background-color: #FEF2F2;
+        border-left: 5px solid #EF4444;
+        padding: 15px;
+        border-radius: 8px;
+        color: #991B1B;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# --- BARRA LATERAL ---
+# --- BARRA LATERAL (Identidad Institucional) ---
 with st.sidebar:
-    st.image("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=200&q=80", caption="Cuencas Saludables, Ciudades Resilientes")
-    st.title("CuencaVerde")
-    st.markdown("**Orquestador Hidro-Territorial**")
+    st.image("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80", use_container_width=True)
+    st.markdown("<h2 style='color:#0369A1; text-align:center;'>CuencaVerde</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; font-style:italic;'>Orquestador Hidro-Territorial</p>", unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown("### Control de Gobernanza")
-    st.info("Seguimiento Trimestral mediante Dashboards SIHT-CV para la Junta Directiva.")
+    
+    st.markdown("### 🏛️ Control de Gobernanza")
+    st.caption("Seguimiento de Metas, ROI Ecosistémico y Distribución de Recursos del Art. 41 para la Junta Directiva.")
+    
+    # Selector de visualización global para la Junta
+    modo_vista = st.radio("Enfoque de Visualización:", ["Completo", "Solo Metas Críticas", "Foco Financiero"])
 
-# --- TÍTULO PRINCIPAL ---
-st.markdown('<p class="main-title">Plan Táctico de Seguridad Hídrica Territorial</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Presentación Estratégica para la Junta Directiva de CuencaVerde</p>', unsafe_allow_html=True)
+# --- ENCABEZADO ---
+st.markdown("<p style='color:#0284C7; font-weight:700; text-transform:uppercase; margin-bottom:0;'>Sistema de Inteligencia Hidro-Territorial (SIHT-CV)</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='margin-top:0;'>Plan Táctico de Seguridad Hídrica Territorial 2026–2027</h1>", unsafe_allow_html=True)
+st.markdown("---")
 
-# --- PESTAÑAS PRINCIPALES ---
+# --- PESTAÑAS INTERACTIVAS ---
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📊 Resumen Ejecutivo", 
-    "🌱 Estructura Programática", 
-    "📅 Cronograma de Ejecución", 
-    "💰 Presupuesto y Recursos"
+    "🎯 Business Case", 
+    "🌿 Líneas de Entrega Táctica", 
+    "🗺️ Conectividad Ecosistémica", 
+    "📈 Inversión y Simulador"
 ])
 
-# PESTAÑA 1: RESUMEN EJECUTIVO
+# PESTAÑA 1: BUSINESS CASE
 with tab1:
     col1, col2 = st.columns([2, 1])
+    
     with col1:
-        st.markdown("### Business Case de Inversión")
+        st.markdown("### Dependencia Socio-Ecológica Regional")
         st.write("""
-        Este Plan Táctico materializa la visión del Plan Estratégico de Seguridad Hídrica CV 2026 mediante la operacionalización de soluciones tangibles y de alto impacto. 
-        Adopta una visión sistémica de **'Cuencas Saludables, Ciudades Resilientes'**, reconociendo la dependencia socio-ecológica con la Región Central funcional (Norte y Oriente) que sostiene el metabolismo urbano del Distrito de Medellín.
+        La viabilidad futura del Distrito de Medellín no puede depender exclusivamente de las fronteras de su infraestructura urbana. 
+        Este Plan Táctico reconoce formalmente la **dependencia funcional con las regiones del Norte y Oriente de Antioquia**, cuyos ecosistemas sostienen el metabolismo urbano regional.
         """)
-        st.write("""
-        A través del **apalancamiento financiero estratégico del Artículo 41 de la Ley 99 de 1993** (mínimo el 1% de los ingresos corrientes del Distrito), CuencaVerde actuará como el orquestador hidro-territorial más allá de las fronteras administrativas.
+        st.markdown("""
+        > **Visión Sistémica:** *«Cuencas Saludables, Ciudades Resilientes»*, operando bajo un modelo ágil de Fondo de Agua que garantiza el rigor científico y la calidad (4C).
         """)
+    
     with col2:
-        st.markdown('<div class="metric-box"><h4>Inversión Estimada Total</h4><h2>$19.000M COP</h2><p>Periodo 2026-2027</p></div>', unsafe_allow_html=True)
-    
-    st.markdown("---")
-    st.markdown("### Vulnerabilidad Estructural y Contexto Regional")
-    st.warning("Dependencia crítica de agua, energía y alimentos provenientes de ecosistemas abastecedores externos, como los embalses La Fe, Río Grande y las microcuencas rurales que los proveen.")
+        st.markdown(f"""
+            <div class="metric-card">
+                <p style="color:#64748B; font-weight:600; margin:0;">PRESUPUESTO TOTAL ESTIMADO</p>
+                <div class="metric-val">$19.000M</div>
+                <p style="color:#0284C7; font-weight:500; margin:0;">COP Asignados (2026-2027)</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("""
+        <div class="vulnerabilidad-box">
+            <strong>⚠️ Alerta de Vulnerabilidad Estructural:</strong> Gestión prioritaria sobre el riesgo crítico en el suministro de los embalses reguladores <strong>La Fe</strong> y <strong>Río Grande II</strong>, junto a sus microcuencas abastecedoras rurales.
+        </div>
+    """, unsafe_allow_html=True)
 
-# PESTAÑA 2: ESTRUCTURA PROGRAMÁTICA
+# PESTAÑA 2: LÍNEAS DE ENTREGA TÁCTICA
 with tab2:
-    st.markdown("### Líneas Estratégicas y Acciones de Prioridad Alta")
+    st.markdown("### Estructura Programática de Entrega")
     
-    linea = st.selectbox("Seleccione la Línea Estratégica a consultar:", [
-        "Línea 1: Gestión del conocimiento e inteligencia Socio-ecológica",
-        "Línea 2: Articulación multisectorial para la gobernanza multinivel",
-        "Línea 3: Intervenciones con propósito y retorno"
-    ])
+    linea_opt = st.segmented_control(
+        "Seleccione la Línea Estratégica a evaluar:",
+        options=["Línea 1: Inteligencia", "Línea 2: Gobernanza", "Línea 3: Intervenciones"],
+        default="Línea 1: Inteligencia"
+    )
     
-    if "Línea 1" in linea:
-        st.markdown("**Objetivo:** Consolidar una plataforma tecnológica multinivel que orqueste información biofísica, climática y sociodemográfica en tiempo real, generando modelación socioecológica predictiva regional.")
-        data_l1 = {
-            "Acción Principal": ["Pacto de transferencia de información", "Puesta en marcha del SIHT", "Desarrollo dashboard SIHT", "Inventario recursos financieros", "Banco de datos SH", "Observatorio de Inteligencia"],
-            "Meta": ["1 Pacto implementado", "100% de desarrollo modelo conceptual v1", "100% de desarrollo del dashboard", "Consolidación avanzada del inventario", "Al menos 90% de implementación", "Al menos 90% de implementación"]
-        }
-        st.table(pd.DataFrame(data_l1))
+    if "Línea 1" in linea_opt:
+        st.markdown("#### Línea 1: Gestión del conocimiento e inteligencia Socio-ecológica")
+        st.caption("Objetivo: Plataforma tecnológica multinivel para modelación socioecológica en tiempo real.")
         
-    elif "Línea 2" in linea:
-        st.markdown("**Objetivo:** Construir e implementar una arquitectura de gobernanza multinivel para la gestión corresponsable de la seguridad hídrica, articulando actores públicos, privados, comunitarios, académicos y territoriales.")
-        data_l2 = {
-            "Acción Principal": ["Gran Pacto por la Seguridad Hídrica", "Diseño y constitución del Consejo", "Formalización de acuerdos de gobernanza", "Constitución de Mesas Temáticas", "Constitución de nodos territoriales"],
-            "Meta": ["100% de suscripción (Medellín)", "100% de conformación del consejo", "100% de formalización de compromisos", "100% de conformación de mesas priorizadas", "100% de conformación de nodos priorizados"]
+        l1_data = {
+            "Acción Táctica Clave": ["Puesta en marcha del SIHT-CV", "Dashboard de Toma de Decisiones", "Observatorio de Inteligencia"],
+            "Indicador": ["Nivel de desarrollo del SIHT-CV", "Nivel de desarrollo del Dashboard", "Nivel de implementación"],
+            "Meta Táctica (Años 1-2)": ["100% modelo conceptual y v1", "100% de despliegue del tablero", "Al menos 90% de operatividad"]
         }
-        st.table(pd.DataFrame(data_l2))
+        st.table(pd.DataFrame(l1_data))
         
-    elif "Línea 3" in linea:
-        st.markdown("**Objetivo:** Diseñar e implementar mecanismos que reconozcan, incentiven y fortalezcan la participación multisectorial, promoviendo la conservación, restauración y la generación de beneficios compartidos.")
-        st.markdown("#### Proyecto Sombrilla Destacado: Corredor Vivo Intercuencas Grande – Aburrá - Negro")
-        st.info("Meta: 6 km de corredores riparios intervenidos de 10 m de ancho en la cuenca de Río Chico (vereda Zafra).")
+    elif "Línea 2" in linea_opt:
+        st.markdown("#### Línea 2: Articulación multisectorial para la gobernanza multinivel")
+        st.caption("Objetivo: Construcción de una arquitectura de gobernanza corresponsable y multiescala.")
         
-        data_l3 = {
-            "Acción Principal": ["Infraestructura verde y SbN", "Programa Escuela-Taller del Agua (ETAB)", "Campaña 'Conectados por el agua'", "Portafolio Certificación Neutralidad Hídrica", "Ranking de seguridad hídrica territorial"],
-            "Meta": ["Plan Estratégico formulado y en marcha", "3 ETABs en marcha", "10 representantes / 25.000 interacciones digitales", "Certificar al menos 90% de organizaciones identificadas al 2028", "100% de entes municipales de AMVA, Norte y Oriente evaluados al 2027"]
+        l2_data = {
+            "Acción Táctica Clave": ["Gran Pacto por la Seguridad Hídrica", "Consejo de Seguridad Hídrica", "Mesas Temáticas Especializadas"],
+            "Indicador": ["Nivel de suscripción", "Nivel de conformación", "Número de mesas constituidas"],
+            "Meta Táctica (Años 1-2)": ["100% firmado por actores en Medellín", "100% de la instancia instalada", "100% de mesas priorizadas en marcha"]
         }
-        st.table(pd.DataFrame(data_l3))
+        st.table(pd.DataFrame(l2_data))
+        
+    elif "Línea 3" in linea_opt:
+        st.markdown("#### Línea 3: Intervenciones con propósito y retorno")
+        st.caption("Objetivo: Acciones en territorio con retornos ecosistémicos verificables.")
+        
+        col_c1, col_c2 = st.columns(2)
+        with col_c1:
+            st.metric(label="Proyecto Sombrilla: Corredor Vivo Intercuencas", value="6 Km lineales", delta="10m de ancho de ronda ripariana")
+        with col_c2:
+            st.metric(label="Programa Escuela-Taller del Agua", value="3 ETABs", delta="Comunidades rurales articuladas")
+            
+        l3_data = {
+            "Acción Táctica Clave": ["Infraestructura verde (SbN / AbE)", "Certificación de Neutralidad Hídrica", "Ranking de Seguridad Hídrica"],
+            "Meta Táctica (Años 1-2)": ["Plan Estratégico e intervenciones formuladas", "90% de empresas meta certificadas al 2028", "100% de municipios del Valle de Aburrá, Norte y Oriente evaluados al 2027"]
+        }
+        st.dataframe(pd.DataFrame(l3_data), use_container_width=True, hide_index=True)
 
-# PESTAÑA 3: CRONOGRAMA DE EJECUCIÓN
+# PESTAÑA 3: CONECTIVIDAD ECOSISTÉMICA (EL MAPA "WOW")
 with tab3:
-    st.markdown("### Secuencia Temporal de Acciones Priorizadas (2026–2027)")
-    st.markdown("La hoja de ruta se organiza en tres fases de desarrollo progresivo:")
+    st.markdown("### Mapa de Intervenciones y Activos Hidrológicos Críticos")
+    st.write("Visualización espacial de los nodos estratégicos que sostienen la resiliencia de la Región Central:")
     
-    col_f1, col_f2, col_f3 = st.columns(3)
-    with col_f1:
-        st.success("**Fase I: Comprender**\n(0-6 meses)")
-    with col_f2:
-        st.info("**Fase II: Acordar**\n(6-12 meses)")
-    with col_f3:
-        st.warning("**Fase III: Hacer**\n(12-18 meses)")
-        
-    st.markdown("### Visualización de Actividades")
-    # Tabla resumen del cronograma basada en el docx
-    cronograma_data = {
-        "Línea": ["Línea 1", "Línea 1", "Línea 2", "Línea 2", "Línea 3", "Línea 3"],
-        "Acción Estratégica": ["Pacto de Información", "Puesta en marcha SIHT", "Gran Pacto SH", "Consejo Territorial", "Corredor Vivo", "Infraestructura Verde y SbN"],
-        "Fase I (Comprender)": ["✔", "✔", "✔", "✔", "✔", "✔"],
-        "Fase II (Acordar)": ["✔", "✔", "", "", "✔", "✔"],
-        "Fase III (Hacer)": ["✔", "✔", "", "", "✔", "✔"]
-    }
-    st.dataframe(pd.DataFrame(cronograma_data), use_container_width=True)
+    # Coordenadas aproximadas de la zona de influencia para desplegar el mapa nativo
+    map_data = pd.DataFrame({
+        'lat': [6.1130, 6.5160, 6.4350], # La Fe, Río Grande II, Río Chico (Zafra)
+        'lon': [-75.5030, -75.4670, -75.5840],
+        'Ubicación': ['Embalse La Fe (Abastecimiento Oriente)', 'Embalse Río Grande II (Abastecimiento Norte)', 'Corredor Vivo Río Chico (Vereda Zafra - Intervención 6km)']
+    })
+    
+    st.map(map_data, zoom=9, use_container_width=True)
+    st.caption("Los puntos representan la infraestructura ecológica externa clave priorizada en la Fase I (Comprender).")
 
-# PESTAÑA 4: PRESUPUESTO Y RECURSOS
+# PESTAÑA 4: INVERSIÓN Y SIMULADOR
 with tab4:
-    st.markdown("### Asignación Presupuestal y Requerimientos")
+    st.markdown("### Optimización del Artículo 41 (Ley 99 de 1993)")
+    st.write("Use el simulador interactivo para evaluar escenarios de apalancamiento financiero según el recaudo distrital:")
     
-    st.markdown("""
-    La implementación de este Plan Táctico requiere una inversión estimada de **$19.000 millones COP**, la cual optimizará la inversión distrital del Artículo 41 mediante sinergias interinstitucionales.
-    """)
+    # Componente interactivo (Slider)
+    porcentaje_recaudo = st.slider(
+        "Porcentaje efectivo asignado de los Ingresos Corrientes del Distrito (Mínimo de ley: 1%):",
+        min_value=1.0, max_value=3.0, value=1.0, step=0.1
+    )
     
-    st.markdown("#### Estructura de Personal Técnico a Cargar en Matriz de Recursos:")
-    st.markdown("""
-    El plan contempla el porcentaje de dedicación y tiempo (en meses) del siguiente equipo interdisciplinario asignado a las acciones tácticas (1.1 a 3.6):
-    * Profesional SIG
-    * Profesional Ambiental
-    * Profesional Forestal
-    * Profesional Social
-    * Profesional Económico
-    * Profesional Comunicaciones
-    * Licencias de Software y Cómputo
-    """)
-    st.info("Nota: Las matrices de asignación analítica de tiempos y porcentajes se encuentran estructuradas en el backend del SIHT-CV para el seguimiento físico-financiero de la Junta Directiva.")
+    # Cálculo dinámico hipotético para impresionar con datos adaptativos
+    base_estimada = 19000  # millones
+    recaudo_simulado = base_estimada * porcentaje_recaudo
+    
+    c_inv1, c_inv2 = st.columns(2)
+    with c_inv1:
+        st.metric(label="Inversión Base Plan Táctico", value="$19.000M COP")
+    with c_inv2:
+        st.metric(label="Fondo Disponible Simulado", value=f"${recaudo_simulado:,.1f}M COP", delta=f"${recaudo_simulado - base_estimada:,.1f}M adicionales")
+        
+    st.markdown("---")
+    st.markdown("#### Matriz Interdisciplinaria de Recursos")
+    st.write("Personal asignado para el monitoreo físico-financiero trimestral a través del SIHT-CV:")
+    
+    recursos = ["Profesional SIG", "Profesional Ambiental", "Profesional Forestal", "Profesional Social", "Profesional Económico", "Profesional Comunicaciones"]
+    st.dataframe(pd.DataFrame({"Perfil Profesional": recursos, "Dedicación Asignada": ["100% en SIHT", "Acompañamiento SbN", "Monitoreo Corredores", "Apropiación ETAB", "Análisis Financiero", "Campaña Conectados por el Agua"]}), use_container_width=True, hide_index=True)
