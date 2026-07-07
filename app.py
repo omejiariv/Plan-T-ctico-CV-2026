@@ -146,7 +146,7 @@ elif modo_vista == "Ruta de Navegación Táctica":
     @st.cache_data
     def cargar_datos_matriz():
         try:
-            df = pd.read_csv("data/PlanTacticoSH_CV.xls - Hoja1.csv")
+            df = pd.read_csv("data/PlanTacticoSH_CV.xls")
             # Limpieza básica de nombres de columnas
             df.columns = [c.strip() for c in df.columns]
             return df
