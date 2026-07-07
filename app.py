@@ -52,7 +52,7 @@ with st.sidebar:
         st.image("data/Logo CuencaVerde", use_container_width=True)
     except:
         # Imagen de respaldo en caso de que el nombre exacto difiera
-        st.image("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80", use_container_width=True)
+        st.image("data/CuencaVerde_Logo.jpg", use_container_width=True)
         
     st.markdown("<h3 style='color:#0369A1; text-align:center;'>Gobernanza Hidro-Territorial</h3>", unsafe_allow_html=True)
     st.markdown("---")
