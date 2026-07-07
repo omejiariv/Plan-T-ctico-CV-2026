@@ -3,241 +3,214 @@ import pandas as pd
 
 # Configuración premium de la página
 st.set_page_config(
-    page_title="SIHT-CV | Plan Táctico de Seguridad Hídrica",
+    page_title="El Aleph del Agua | Plan Táctico CV",
     page_icon="💧",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed" # Escondemos el sidebar para máxima inmersión
 )
 
-# Estilos CSS Avanzados: Identidad "Fondo de Agua" institucional y tipografías limpias
+# 🎨 INYECCIÓN MAJESTUOSA DE CSS (Inspirado en tu index.html)
 st.markdown("""
     <style>
-    .stApp { background-color: #F8FAFC; }
-    h1, h2, h3 { color: #0F172A; font-family: 'Helvetica Neue', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
     
-    /* Contenedor del Lema Principal */
+    /* Configuración de fondo oscuro y tipografía global */
+    .stApp {
+        background: linear-gradient(180deg, #050B14 0%, #0A192F 100%);
+        color: #E2E8F0;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    /* Títulos poéticos estilo Cinzel */
+    .titulo-aleph {
+        font-family: 'Cinzel', serif;
+        color: #F8FAFC;
+        text-align: center;
+        font-size: 42px;
+        letter-spacing: 3px;
+        margin-top: 20px;
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+    
+    .subtitulo-aleph {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        color: #38BDF8;
+        text-align: center;
+        font-size: 18px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+    }
+    
+    /* El Lema institucional como un bloque de energía */
     .lema-wow {
-        background: linear-gradient(135deg, #1E3A8A 0%, #0284C7 100%);
-        padding: 30px;
+        background: linear-gradient(135deg, rgba(2, 132, 199, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 35px;
+        border-radius: 20px;
+        color: #F1F5F9;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.6;
+        font-style: italic;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        margin: 40px auto;
+        max-width: 85%;
+    }
+    
+    /* Tarjetas de Datos Estilo Vidrio Esmerilado (Glassmorphism) */
+    .card-glass {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 25px;
         border-radius: 16px;
-        color: #FFFFFF;
-        text-align: center;
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 1.4;
-        box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.2);
-        margin-bottom: 35px;
+        backdrop-filter: blur(12px);
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;
+    }
+    .card-glass:hover {
+        border-color: rgba(56, 189, 248, 0.4);
     }
     
-    /* Tarjetas de Métricas */
-    .card-metrica {
-        background-color: #FFFFFF;
-        padding: 24px;
+    /* Modificación de las tablas nativas de Streamlit para adaptarlas al fondo oscuro */
+    .stDataFrame, table {
+        background-color: rgba(10, 25, 47, 0.5) !important;
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        border-top: 5px solid #10B981;
-        text-align: center;
     }
-    .val-metrica { font-size: 38px; font-weight: 800; color: #065F46; }
     
-    /* Cajas de Alerta de Riesgo */
-    .alerta-territorial {
-        background-color: #FFFBEB;
-        border-left: 5px solid #F59E0B;
-        padding: 20px;
-        border-radius: 8px;
-        color: #92400E;
-        margin-bottom: 25px;
+    /* Customización de botones de navegación */
+    div.stButton > button {
+        background-color: transparent;
+        color: #38BDF8;
+        border: 1px solid #38BDF8;
+        padding: 10px 24px;
+        border-radius: 30px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    div.stButton > button:hover {
+        background-color: #38BDF8;
+        color: #050B14;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
     }
     </style>
 """, unsafe_allow_html=True)
 
+# ==========================================
+# SECCIÓN HEADER: EL ALEPH DEL AGUA
+# ==========================================
+st.markdown('<p class="titulo-aleph">EL ALEPH DEL AGUA</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitulo-aleph">Plan Táctico de Seguridad Hídrica • CuencaVerde</p>', unsafe_allow_html=True)
 
-# --- BARRA LATERAL (Estructura de Gobernanza e Identidad) ---
-with st.sidebar:
-    try:
-        st.image("data/Logo CuencaVerde.jpg", use_container_width=True)
-    except:
-        try:
-            st.image("data/CuencaVerde Logo.jpg", use_container_width=True)
-        except:
-            st.markdown("<h2 style='color:#0284C7;'>CuencaVerde</h2>", unsafe_allow_html=True)
-            
-    st.markdown("### 🏛️ Control de Gobernanza")
-    modo_vista = st.radio(
-        "Filtrar enfoque de la sesión:",
-        ["Nuestra Alianza y Retos", "Ruta de Navegación Táctica", "Metas e Indicadores de Impacto"]
-    )
-    st.markdown("---")
-    st.caption("Fondo de Agua • Sistema de Inteligencia Hidro-Territorial")
+# 🌟 TU MENSAJE CON LA FUERZA Y EL ESTILO DEL HTML
+st.markdown("""
+    <div class="lema-wow">
+        "Juntos, somos más sostenibles, más efectivos, más visibles, más seguros y más fuertes."
+    </div>
+""", unsafe_allow_html=True)
 
+# NAVEGACIÓN ESTILO CUENTAGOTAS
+col_nav1, col_nav2, col_nav3 = st.columns(3)
+with col_nav1:
+    btn_origen = st.button("Ⅰ. El Origen y El Reto", use_container_width=True)
+with col_nav2:
+    btn_ruta = st.button("Ⅱ. La Ruta Táctica", use_container_width=True)
+with col_nav3:
+    btn_metas = st.button("Ⅲ. El Retorno del Agua", use_container_width=True)
+
+# Variable de control del flujo narrativo (Session State)
+if "seccion" not in st.session_state:
+    st.session_state.seccion = "origen"
+
+if btn_origen: st.session_state.seccion = "origen"
+if btn_ruta: st.session_state.seccion = "ruta"
+if btn_metas: st.session_state.seccion = "metas"
+
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ==========================================
-# ENFOQUE 1: NUESTRA ALIANZA Y RETOS
+# DESARROLLO DEL RELATO (CONTENIDO FILTRADO)
 # ==========================================
-if modo_vista == "Nuestra Alianza y Retos":
-    
-    # 🌟 EL LEMA PRINCIPAL EN GRAN FORMATO NARRATIVO
-    st.markdown("""
-        <div class="lema-wow">
-            "Juntos, somos más sostenibles, más efectivos, más visibles, más seguros y más fuertes."
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("<p style='color:#0284C7; font-weight:700; text-transform:uppercase; margin-bottom:0;'>Marco Estratégico-Táctico Consolidado</p>", unsafe_allow_html=True)
-    st.markdown("<h1>El Valor de Nuestra Unión Territorial</h1>", unsafe_allow_html=True)
-    st.markdown("---")
-    
-    # Bloque de Gobernanza: Asociados y Aliados
-    st.markdown("### 👥 Estructura de Gobernanza del Fondo de Agua")
-    col_asoc, col_alia = st.columns(2)
-    
-    with col_asoc:
-        st.markdown("#### **Nuestros Asociados**")
-        try:
-            st.image("data/asociados.png", use_container_width=True)
-        except:
-            st.info("Cargando matriz de asociados institucionales...")
-            
-    with col_alia:
-        st.markdown("#### **Nuestros Aliados Estratégicos**")
-        try:
-            st.image("data/aliados.png", use_container_width=True)
-        except:
-            st.info("Cargando red de aliados estratégicos...")
-            
-    st.markdown("---")
-    
-    # Bloque de Diagnóstico y Vulnerabilidad
-    st.markdown("### 🗺️ El Reto Hidro-Territorial Colectivo")
-    col_diag, col_img_se = st.columns([1, 1])
-    
-    with col_diag:
-        st.markdown("""
-        La viabilidad futura del Distrito de Medellín y el Valle de Aburrá no puede depender exclusivamente de sus fronteras administrativas. 
-        Mantenemos una **dependencia socio-ecológica crítica** de la Región Central funcional (Norte y Oriente de Antioquia). 
-        
-        Nuestros grandes activos y fuentes reguladoras, como los embalses **La Fe y Río Grande II**, requieren esquemas urgentes de conservación basados en Soluciones basadas en la Naturaleza (SbN).
-        """)
-        
-        st.markdown("""
-        <div class="alerta-territorial">
-            <strong>⚠️ Vulnerabilidad Estructural Detectada:</strong> Riesgo creciente en la provisión de servicios hídricos debido a la degradación de coberturas riparias en microcuencas rurales abastecedoras.
-        </div>
-    """, unsafe_allow_html=True)
-        
-    with col_img_se:
-        try:
-            st.image("data/SE Riparios 2.png", caption="Esquema Técnico de Beneficios y Servicios Ecosistémicos Riparios", use_container_width=True)
-        except:
-            st.warning("Subiendo esquema analítico de servicios riparios...")
 
-
-# ==========================================
-# ENFOQUE 2: RUTA DE NAVEGACIÓN TÁCTICA
-# ==========================================
-elif modo_vista == "Ruta de Navegación Táctica":
-    st.markdown("<p style='color:#0284C7; font-weight:700; text-transform:uppercase; margin-bottom:0;'>Matriz Operativa Interactiva</p>", unsafe_allow_html=True)
-    st.markdown("<h1>Plan Táctico de Seguridad Hídrica (PlanTacticoSH_CV)</h1>", unsafe_allow_html=True)
-    st.markdown("Filtre la matriz oficial de forma dinámica para enfocar el debate de la Junta:")
-    st.markdown("---")
-    
-    # Carga de la matriz técnica que subiste
-    @st.cache_data
-    def cargar_datos_matriz():
-        try:
-            df = pd.read_csv("data/PlanTacticoSH_CV.xls")
-            # Limpieza básica de nombres de columnas
-            df.columns = [c.strip() for c in df.columns]
-            return df
-        except:
-            # Datos de respaldo estructurados por si cambia la ruta
-            return pd.DataFrame({
-                "Línea Estratégica": ["Línea 1", "Línea 2", "Línea 3"],
-                "Acción Estratégica": ["1.1 Pacto de Información", "2.1 Gran Pacto SH", "3.1 Corredor Vivo"],
-                "Descripción": ["Intercambio de información", "Gobernanza multiescala", "6km de intervenciones"],
-                "Fase I": ["●", "●", "●"],
-                "Fase II": ["●", "", "●"],
-                "Fase III": ["", "", "●"]
-            })
-
-    df_matriz = cargar_datos_matriz()
-    
-    # 🎛️ CONTROLES DINÁMICOS PARA LA JUNTA (Filtros amigables)
-    col_f1, col_f2 = st.columns(2)
-    with col_f1:
-        lineas_disponibles = df_matriz["Línea Estratégica"].dropna().unique()
-        linea_sel = st.selectbox("Seleccione la Línea de Trabajo:", ["Todas"] + list(lineas_disponibles))
-    with col_f2:
-        fase_sel = st.segmented_control("Filtrar por Horizonte Temporal de Ejecución:", ["Todas", "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"], default="Todas")
-        
-    # Aplicación de filtros lógicos en cascada
-    df_filtrado = df_matriz.copy()
-    if linea_sel != "Todas":
-        df_filtrado = df_filtrado[df_filtrado["Línea Estratégica"] == linea_sel]
-        
-    if fase_sel == "Fase I (Comprender)":
-        df_filtrado = df_filtrado[df_filtrado["Fase I"].isin(["●", "● ", " ●"])]
-    elif fase_sel == "Fase II (Acordar)":
-        df_filtrado = df_filtrado[df_filtrado["Fase II"].isin(["●", "● ", " ●"])]
-    elif fase_sel == "Fase III (Hacer)":
-        df_filtrado = df_filtrado[df_filtrado["Fase III"].isin(["●", "● ", " ●"])]
-        
-    # Renderizado estético de la tabla oficial transformándola en interactiva
-    st.markdown("### 📋 Acciones y Actividades Programadas")
-    st.dataframe(
-        df_filtrado,
-        column_config={
-            "Línea Estratégica": st.column_config.TextColumn("Línea", width="medium"),
-            "Acción Estratégica": st.column_config.TextColumn("Acción Estratégica", width="large"),
-            "Descripción": st.column_config.TextColumn("Descripción Detallada", width="large"),
-            "Actividades": st.column_config.TextColumn("Actividades de Entrega", width="large"),
-        },
-        use_container_width=True,
-        hide_index=True
-    )
-
-
-# ==========================================
-# ENFOQUE 3: METAS E INDICADORES DE IMPACTO
-# ==========================================
-elif modo_vista == "Metas e Indicadores de Impacto":
-    st.markdown("<p style='color:#10B981; font-weight:700; text-transform:uppercase; margin-bottom:0;'>Monitoreo Físico y Retorno Ecosistémico</p>", unsafe_allow_html=True)
-    st.markdown("<h1>Compromisos Globales y Dashboard del SIHT-CV</h1>", unsafe_allow_html=True)
-    st.markdown("---")
-    
-    col_ods, col_metas = st.columns([1, 1])
-    
-    with col_ods:
-        st.markdown("### 🌍 Contribución Directa a los ODS")
+if st.session_state.seccion == "origen":
+    col_text, col_img = st.columns([11, 9])
+    with col_text:
+        st.markdown("### 🌊 La Dependencia Ecosistémica")
         st.write("""
-        Las metas e intervenciones definidas en el horizonte 2026-2027 no son esfuerzos aislados. 
-        Están diseñadas metodológicamente para asegurar el cumplimiento transversal de las metas globales del agua, la acción climática y las alianzas territoriales.
+        Al igual que en el universo concentrado de Borges, el metabolismo urbano del Valle de Aburrá se sostiene en un único punto biofísico: 
+        las microcuencas del Norte y Oriente de Antioquia. 
+        
+        Nuestra viabilidad no se define en el asfalto, sino en las raíces de los corredores riparios que protegen los embalses de **Río Grande II y La Fe**.
         """)
+        
+        # Caja estilo vidrio esmerilado para alertar a la dirección
+        st.markdown("""
+            <div class="card-glass" style="border-left: 4px solid #EF4444;">
+                <span style="color:#EF4444; font-weight:600; text-transform:uppercase; font-size:12px;">Alerta de Vulnerabilidad</span>
+                <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#F1F5F9;">
+                    La degradación de las franjas forestales riparias pone en riesgo inminente la regulación hídrica de la cual depende el Distrito.
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+    with col_img:
         try:
-            st.image("data/ODS_CV.png", caption="Alineación Estratégica de CuencaVerde con las Metas Globales", use_container_width=True)
+            st.image("data/SE Riparios 2.png", caption="Arquitectura de los Servicios Ecosistémicos Riparios", use_container_width=True)
         except:
-            st.info("Cargando matriz ODS...")
+            st.caption("Falta cargar el archivo SE Riparios 2.png en data/")
+
+    st.markdown("---")
+    st.markdown("### 🏛️ Nuestra Red de Alianzas")
+    col_a1, col_a2 = st.columns(2)
+    with col_a1:
+        try: st.image("data/asociados.png", caption="Asociados de CuencaVerde", use_container_width=True)
+        except: pass
+    with col_a2:
+        try: st.image("data/aliados.png", caption="Aliados Estratégicos", use_container_width=True)
+        except: pass
+
+
+elif st.session_state.seccion == "ruta":
+    st.markdown("### 📋 La Hoja de Ruta Territorial (PlanTacticoSH_CV)")
+    st.write("Filtre analíticamente los compromisos consolidados en la matriz técnica:")
+    
+    # Intento de lectura del CSV dinámico
+    try:
+        df = pd.read_csv("data/PlanTacticoSH_CV.xls - Hoja1.csv")
+        df.columns = [c.strip() for c in df.columns]
+        
+        fase = st.segmented_control("Horizonte de Entrega:", ["Todas", "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"], default="Todas")
+        
+        df_f = df.copy()
+        if fase == "Fase I (Comprender)": df_f = df_f[df_f["Fase I"].isin(["●", "● ", " ●"])]
+        elif fase == "Fase II (Acordar)": df_f = df_f[df_f["Fase II"].isin(["●", "● ", " ●"])]
+        elif fase == "Fase III (Hacer)": df_f = df_f[df_f["Fase III"].isin(["●", "● ", " ●"])]
+        
+        st.dataframe(df_f, use_container_width=True, hide_index=True)
+    except:
+        st.info("Visualizando la matriz interactiva del Plan Táctico en formato unificado.")
+
+
+elif st.session_state.seccion == "metas":
+    st.markdown("### 📈 El Retorno de la Inversión Ecosistémica")
+    
+    col_fichas, col_ods = st.columns([1, 1])
+    with col_fichas:
+        ficha = st.radio("Seleccione Ficha Técnica de Metas:", ["Ficha 1", "Ficha 2", "Ficha 3", "Ficha 4", "Ficha 5"])
+        fichas_map = {"Ficha 1": "P1", "Ficha 2": "P2", "Ficha 3": "P3", "Ficha 4": "P4", "Ficha 5": "P5"}
+        
+        try:
+            st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
+        except:
+            st.caption(f"Cargue la imagen de la Ficha {ficha} en la carpeta data/")
             
-    with col_metas:
-        st.markdown("### 📊 Hojas de Ruta Analíticas de Indicadores")
-        st.write("Seleccione una de las fichas de metas analizadas por el equipo técnico:")
-        
-        ficha_sel = st.radio(
-            "Seleccionar Ficha de Entrega:",
-            ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia Hidro-Territorial", "Ficha 3 - Gobernanza Multinivel", "Ficha 4 - Intervenciones SbN", "Ficha 5 - Gestión del Monitoreo"]
-        )
-        
-        # Diccionario para mapear de forma segura las imágenes que subiste
-        fichas_img = {
-            "Ficha 1 - Línea de Base": "data/Metas_Indicadores_P1.png",
-            "Ficha 2 - Inteligencia Hidro-Territorial": "data/Metas_Indicadores_P2.png",
-            "Ficha 3 - Gobernanza Multinivel": "data/Metas_Indicadores_P3.png",
-            "Ficha 4 - Intervenciones SbN": "data/Metas_Indicadores_P4.png",
-            "Ficha 5 - Gestión del Monitoreo": "data/Metas_Indicadores_P5.png"
-        }
-        
+    with col_ods:
+        st.markdown("#### **Alineación con Objetivos Globales**")
         try:
-            st.image(fichas_img[ficha_sel], caption=f"Desglose Técnico: {ficha_sel}", use_container_width=True)
+            st.image("data/ODS_CV.png", use_container_width=True)
         except:
-            st.warning(f"Asegúrate de que el archivo {fichas_img[ficha_sel]} se encuentre en la carpeta data/")
+            pass
