@@ -49,7 +49,7 @@ st.markdown("""
 with st.sidebar:
     # 📸 Intenta cargar el logo corporativo desde tu nueva carpeta 'data'
     try:
-        st.image("data/Logo CuencaVerde.jpg", use_container_width=True)
+        st.image("data/Logo CuencaVerde", use_container_width=True)
     except:
         # Imagen de respaldo en caso de que el nombre exacto difiera
         st.image("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80", use_container_width=True)
