@@ -159,9 +159,9 @@ if st.session_state.seccion == "origen":
         
     with col_img:
         try:
-            st.image("data/SE Riparios 2.png", caption="Arquitectura de los Servicios Ecosistémicos Riparios", use_container_width=True)
+            st.image("data/SegHid.mp4", caption="Arquitectura de los Servicios Ecosistémicos Riparios", use_container_width=True)
         except:
-            st.caption("Falta cargar el archivo SE Riparios 2.png en data/")
+            st.caption("Falta cargar el archivo SegHid.mp4 en data/")
 
     st.markdown("---")
     st.markdown("### 🏛️ Nuestra Red de Alianzas")
