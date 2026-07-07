@@ -47,12 +47,17 @@ st.markdown("""
 
 # --- BARRA LATERAL ---
 with st.sidebar:
-    # 📸 Intenta cargar el logo corporativo desde tu nueva carpeta 'data'
+    # 📸 Intento de carga con los nombres reales de tus archivos en GitHub
     try:
-        st.image("data/Logo CuencaVerde", use_container_width=True)
+        # Probamos con tu archivo real (respetando el espacio)
+        st.image("data/Logo CuencaVerde.jpg", use_container_width=True)
     except:
-        # Imagen de respaldo en caso de que el nombre exacto difiera
-        st.image("data/CuencaVerde_Logo.jpg", use_container_width=True)
+        try:
+            # Alternativa secundaria si el anterior falla
+            st.image("data/CuencaVerde Logo.jpg", use_container_width=True)
+        except:
+            # RESPALDO ABSOLUTO: Si ninguna ruta local funciona, usa una URL web para que la app NUNCA se caiga
+            st.image("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80", use_container_width=True)
         
     st.markdown("<h3 style='color:#0369A1; text-align:center;'>Gobernanza Hidro-Territorial</h3>", unsafe_allow_html=True)
     st.markdown("---")
@@ -90,7 +95,7 @@ if modo_vista == "Completo":
             st.write("La viabilidad futura del Distrito de Medellín depende de la Región Central funcional (Norte y Oriente).")
             # Mostrar paisaje del norte de Antioquia desde tu carpeta data si está disponible
             try:
-                st.image("data/EmbalseRG.jpg", caption="Paisaje de la Región de Influencia - Embalse Río Grande II", use_container_width=True)
+                st.image("data/EmbalseRG.png", caption="Paisaje de la Región de Influencia - Embalse Río Grande II", use_container_width=True)
             except:
                 pass
         with col2:
@@ -121,7 +126,7 @@ elif modo_vista == "Solo Metas Críticas":
         st.subheader("🌿 Línea 3: Corredor Vivo Intercuencas")
         st.warning("Meta de choque: 6 km de corredores riparios intervenidos (Vereda Zafra - Río Chico).")
         try:
-            st.image("data/EmbalseRG1.jpg", caption="Monitoreo de Coberturas en Zonas de Intervención", use_container_width=True)
+            st.image("data/EmbalseRG1.png", caption="Monitoreo de Coberturas en Zonas de Intervención", use_container_width=True)
         except:
             pass
             
