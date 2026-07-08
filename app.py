@@ -81,7 +81,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 3. ENCABEZADO OPTIMIZADO: LOGO + TÍTULO EN FILA DE BAJO PERFIL
-col_logo, col_tit = st.columns([0.7, 10.0])
+col_logo, col_tit = st.columns([0.7, 8.0])
 
 with col_logo:
     st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%; pt: 5px;'>", unsafe_allow_html=True)
