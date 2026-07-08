@@ -70,9 +70,9 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* 💥 CONTROL ABSOLUTO DE ALTURA: Evita el desborde en la pestaña III de forma definitiva */
+    /* CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
     .contenedor-ficha-fija img {
-        height: 280px !important;
+        height: 310px !important;
         width: 100% !important;
         object-fit: fill !important;
         border-radius: 12px;
@@ -81,7 +81,7 @@ st.markdown("""
     }
     
     .contenedor-ods-fijo img {
-        height: 280px !important;
+        height: 310px !important;
         object-fit: contain !important;
         width: auto !important;
         margin: 0 auto !important;
@@ -133,12 +133,50 @@ with st.sidebar:
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo de ley: 1%):", 1.0, 3.0, 1.0, step=0.1)
     st.metric(label="Fondo Disponible Simulado", value=f"${19000 * porcentaje:,.1f}M COP")
 
-# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas estrictamente en la raíz para evitar duplicación)
-tab_origen, tab_ruta, tab_metas = st.tabs([
+# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas estrictamente en la raíz para evitar duplicación de la barra superior)
+# 💥 SOLUCIÓN DEFINITIVA: Se declara la Pestaña 0 al inicio como el marco conceptual innegociable
+tab_contexto, tab_origen, tab_ruta, tab_metas = st.tabs([
+    "0. Seguridad Hídrica Integral",
     "Ⅰ. El Origen y El Reto", 
     "Ⅱ. La Ruta Táctica (PlanTacticoSH_CV)", 
     "Ⅲ. El Retorno del Agua"
 ])
+
+# ==========================================
+# 💥 NUEVA PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
+# ==========================================
+with tab_contexto:
+    st.markdown("### 🌍 El Punto de Inflexión Climático y Territorial")
+    st.write("""
+    La seguridad hídrica ha dejado de ser un asunto estrictamente ambiental para transformarse en el **activo más crítico y vulnerable de la estabilidad social y económica**[cite: 3]. 
+    La intensificación del ciclo hidrológico impulsada por la crisis climática sitúa a los territorios ante riesgos financieros y operativos sin precedentes[cite: 3].
+    """)
+    
+    col_contexto_text, col_contexto_vid = st.columns([10, 10])
+    
+    with col_text:
+        try:
+            # Diapositiva conceptual de crisis climática que subiste
+            st.image("data/image_c9d060.jpg", use_container_width=True)
+        except:
+            pass
+            
+        st.markdown("""
+            <div class="card-glass" style="border-left: 4px solid #EF4444;">
+                <span style="color:#EF4444; font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:0.5px;">Impulsores de Cambio en Antioquia</span>
+                <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#E2E8F0;">
+                    La alternancia extrema entre sequías prolongadas (El Niño), aguaceros torrenciales (La Niña) e incendios de cobertura vegetal, presionan la infraestructura gris y aceleran la degradación de los ecosistemas reguladores de la Región Central[cite: 3].
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+    with col_contexto_vid:
+        st.markdown("#### **🎥 Mosaico Situacional: Las Consecuencias de la Inseguridad**")
+        try:
+            # 💥 ESPACIO RESERVADO PARA TU NUEVO VIDEO ANIMADO EN SECUENCIA
+            st.video("data/Inseguridad_Global.mp4")
+        except:
+            st.info("Espacio reservado para el video editado en secuencia (sequías, embalses secos, inundaciones urbanas, incendios forestales y desabastecimiento por carrotanques).")
 
 # ==========================================
 # PESTAÑA I: EL ORIGEN Y EL RETO
@@ -149,28 +187,28 @@ with tab_origen:
     except:
         pass
 
-    col_text, col_video = st.columns([6, 9])
-    with col_text:
+    col_text_origen, col_video_origen = st.columns([10, 10])
+    with col_text_origen:
         st.markdown("### 🌊 Diagnóstico y Dependencia Socio-Ecológica")
         st.write("""
-        El metabolismo urbano de Medellín depende críticamente de cuencas e infraestructuras ecológicas externas localizadas en el Norte y Oriente de Antioquia. 
-        Los sistemas reguladores de **Río Grande II y La Fe** sostienen la vida colectiva y la resiliencia del territorio.
+        El metabolismo urbano de Medellín depende críticamente de cuencas e infraestructuras ecológicas externas localizadas en el Norte y Oriente de Antioquia[cite: 1]. 
+        Los sistemas reguladores de **Río Grande II y La Fe** sostienen la vida colectiva y la resiliencia del territorio[cite: 1].
         """)
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #10B981;">
                 <span style="color:#10B981; font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:0.5px;">Pilar 1: Soluciones Basadas en la Naturaleza (SbN)</span>
                 <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#E2E8F0;">
-                    Restauración dirigida de coberturas y mantenimiento de la conectividad ecohidrológica en la Estructura Ecológica Principal de las cuencas aportantes.
+                    Restauración dirigida de coberturas y mantenimiento de la conectividad ecohidrológica en la Estructura Ecológica Principal de las cuencas aportantes[cite: 3].
                 </p>
             </div>
             <div class="card-glass" style="border-left: 4px solid #38BDF8;">
                 <span style="color:#38BDF8; font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:0.5px;">Pilar 2: Rigor Científico Integrado</span>
                 <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#E2E8F0;">
-                    Operación de la plataforma SIHT-CV para generar modelación socioecológica predictiva regional en tiempo real ante el cambio climático.
+                    Operación de la plataforma SIHT-CV para generar modelación socioecológica predictiva regional en tiempo real ante el cambio climático[cite: 1, 3].
                 </p>
             </div>
         """, unsafe_allow_html=True)
-    with col_video:
+    with col_video_origen:
         st.markdown("#### **🎥 Materialización de la Visión Táctica**")
         try:
             st.video("data/SegHid.mp4")
@@ -187,13 +225,13 @@ with tab_ruta:
     with col_t1:
         tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True)
     with col_t2:
-        # Menú dinámico limpio y funcional sin duplicaciones
+        # Selector de foco temático aislado de forma segura dentro de la pestaña II
         programa_focus = st.selectbox(
-            "Enfoque Estratégico Dinámico:", 
+            "Enfoque Estratégico Dinámico (Foco Sankey):", 
             ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"]
         )
 
-    # Base de datos unificada de la matriz técnica oficial
+    # Base de datos de la matriz táctica oficial
     @st.cache_data
     def obtener_matriz_tecnica_limpia():
         try:
@@ -213,9 +251,9 @@ with tab_ruta:
                     "3.1 Corredor Vivo Intercuencas Grande – Aburrá - Negro", "3.2 Infraestructura verde y Soluciones Basadas en la naturaleza para la SH", "3.3 Programa Escuela-Taller del agua y la Biodiversidad (ETAB)"
                 ],
                 "Meta Táctica (Años 1-2)": [
-                    "1 Pacto de información territorial implementado", "100% de desarrollo del modelo conceptual y primera versión del SIHT-CV", "100% de desarrollo del dashboard SIHT-CV",
-                    "100% de suscripción del Gran Pacto por la Seguridad Hídrica de Medellín", "100% de conformación del consejo de seguridad hídrica territorial",
-                    "6 km de corredores intervenidos de 10 m de ancho en la cuenca de Río Chico", "Plan Estratégico de Seguridad Hídrica y Resiliencia Territorial formulado y puesto en marcha", "3 ETABs en marcha"
+                    "1 Pacto de información territorial implementado[cite: 1]", "100% de desarrollo del modelo conceptual y primera versión del SIHT-CV[cite: 1]", "100% de desarrollo del dashboard SIHT-CV[cite: 1]",
+                    "100% de suscripción del Gran Pacto por la Seguridad Hídrica de Medellín[cite: 1]", "100% de conformación del consejo de seguridad hídrica territorial[cite: 1]",
+                    "6 km de corredores intervenidos de 10 m de ancho en la cuenca de Río Chico[cite: 1]", "Plan Estratégico de Seguridad Hídrica y Resiliencia Territorial formulado y puesto en marcha[cite: 1]", "3 ETABs en marcha[cite: 1]"
                 ]
             }
             return pd.DataFrame(datos_oficiales)
@@ -233,7 +271,7 @@ with tab_ruta:
             "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
         ]
         
-        # Conexiones estructuradas por flujos temporales
+        # Mapeo estricto: Línea 1 -> Fase I, Línea 2 -> Fase II, Línea 3 -> Fase III
         sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
         targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
         values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
@@ -276,7 +314,7 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
 
-        # CONTROL INTERACTIVO SITUACIONAL EXCLUSIVO
+        # RENDERIZADO DE CONTENIDOS SITUACIONALES SEGÚN SELECCIÓN
         if "2.1 Gran Pacto" in programa_focus:
             st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
             col_pacto_txt, col_pacto_img = st.columns([8, 4])
@@ -284,16 +322,16 @@ with tab_ruta:
                 st.markdown("""
                 <div class="card-glass" style="border-left: 4px solid #38BDF8; font-size:16.5px; padding:20px;">
                     <strong>La Semana del Clima de Medellín</strong> es la ventana para convertir la seguridad hídrica en una agenda de ciudad: 
-                    ciencia, innovación, inversión y acción territorial al servicio de la naturaleza y de las personas.
+                    ciencia, innovación, inversión y acción territorial al servicio de la naturaleza y de las personas[cite: 1].
                 </div>
                 """, unsafe_allow_html=True)
             with col_pacto_img:
-                try: st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True)
+                try: st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True)
                 except: st.image("data/aliados.png", use_container_width=True)
 
         elif "3.2" in programa_focus:
             st.markdown("### 🌱 Programa 2: Recuperación Ecohidrológica Multifuncional")
-            st.write("Mantenimiento y mitigación de escorrentías en la infraestructura ecológica de la Región Central:")
+            st.write("Mantenimiento y mitigación de escorrentías en la infraestructura ecológica de la Región Central[cite: 1]:")
             col_v1, col_v2 = st.columns(2)
             with col_v1:
                 st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural**")
@@ -302,14 +340,14 @@ with tab_ruta:
             with col_v2:
                 st.markdown("#### **🌱 Escenario B: Resiliencia Territorial con SbN**")
                 try: st.video("data/Prog2_Resiliencia.mp4")
-                except: st.success("Simulación de la funcionalidad ecohidrológica recuperada.")
+                except: st.success("Simulación de la funcionalidad ecohidrológica recuperada[cite: 1].")
 
         elif "3.3" in programa_focus:
             st.markdown("### 💻 Componente 3.3: Programa Escuela-Taller del Agua y la Biodiversidad (ETAB)")
             col_et1, col_et2 = st.columns([9, 11])
             with col_et1:
                 st.markdown("""
-                Formación avanzada y fortalecimiento de capacidades comunitarias en entornos rurales para promover la cultura del agua, la gobernanza hídrica y el intercambio de saberes tradicionales sobre los ciclos hidrológicos locales.
+                Formación avanzada y fortalecimiento de capacidades comunitarias en entornos rurales para promover la cultura del agua, la gobernanza hídrica y el intercambio de saberes tradicionales sobre los ciclos hidrológicos locales[cite: 1].
                 """)
             with col_et2:
                 try: st.video("data/Escuelas_Taller.mp4")
@@ -319,12 +357,26 @@ with tab_ruta:
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: 15px; text-align: center;">
                 <p style="margin: 0; font-size: 16px;">
-                    🌐 <strong>Acceso Directo al Sistema de Información:</strong> El componente 1.3 orquesta los datos regionales en vivo. 
+                    🌐 <strong>Acceso Directo al Sistema de Información:</strong> El componente 1.3 orquesta los datos regionales en vivo[cite: 1]. 
                     Puedes interactuar con el entorno de simulación entrando aquí: 
                     <a class="link-sihclim" href="https://sihclim-v1-6n3jcavvxqxpxrnqikzfpt.streamlit.app/" target="_blank">Abrir Plataforma SIHCLIM / SIHCLI-POTER</a>
                 </p>
             </div>
         """, unsafe_allow_html=True)
+
+    else:
+        # Modo de datos tabular tradicional
+        col_l, col_f = st.columns(2)
+        with col_l:
+            opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
+            filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l)
+        with col_f:
+            filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I", "Fase II", "Fase III"], default="Todas")
+            
+        df_ver = df_matriz.copy()
+        if filtro_l != "Todas":
+            df_ver = df_ver[df_ver["Línea Estratégica"] == filtro_l]
+        st.dataframe(df_ver, use_container_width=True, hide_index=True)
 
 # ==========================================
 # PESTAÑA III: EL RETORNO DEL AGUA
@@ -332,10 +384,10 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([7, 3])
+    col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
-        st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
+        st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**[cite: 1]")
         ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True)
         fichas_map = {"Ficha 1 - Línea de Base": "P1", "Ficha 2 - Inteligencia": "P2", "Ficha 3 - Gobernanza": "P3", "Ficha 4 - Intervenciones": "P4", "Ficha 5 - Monitoreo": "P5"}
         
@@ -346,7 +398,7 @@ with tab_metas:
             
     with col_ods:
         st.markdown("#### **🌍 Alineación con Objetivos Globales**")
-        st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad:")
+        st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad[cite: 1]:")
         
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
         try: st.image("data/ODS_CV.png", use_container_width=True)
