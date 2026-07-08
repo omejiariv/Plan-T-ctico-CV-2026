@@ -241,7 +241,7 @@ with tab_contexto:
         st.markdown('<div class="contenedor-crisis-fijo">', unsafe_allow_html=True)
         if categoria_riesgo == "⚠️ Diagnóstico Crítico":
             try: st.image("data/CrisisAguaClima/image_c9d060.jpg", use_container_width=True)
-            except: st.image("data/EmbalseRG.jpg", use_container_width=True)
+            except: st.image("data/EmbalseRG.png", use_container_width=True)
             
         elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
             try: st.image("data/CrisisAguaClima/embalseseco.jpg", use_container_width=True)
@@ -267,7 +267,7 @@ with tab_origen:
     # 💥 RESPUESTA AL PUNTO 3: Contenedor con CSS panorámico acoplado para reducir la altura a la mitad
     st.markdown('<div class="contenedor-embalse-panoramico">', unsafe_allow_html=True)
     try:
-        st.image("data/EmbalseRG.jpg", use_container_width=True)
+        st.image("data/EmbalseRG.png", use_container_width=True)
     except:
         pass
     st.markdown('</div>', unsafe_allow_html=True)
