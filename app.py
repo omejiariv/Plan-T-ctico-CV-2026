@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Alturas, Espacios y Layout)
+# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Redimensionamiento y Layout Cohesivo)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -70,9 +70,9 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
+    /* 💥 CONTROL ABSOLUTO DE ALTURA: Evita el desborde en la pestaña III de forma definitiva */
     .contenedor-ficha-fija img {
-        height: 320px !important;
+        height: 280px !important;
         width: 100% !important;
         object-fit: fill !important;
         border-radius: 12px;
@@ -81,7 +81,7 @@ st.markdown("""
     }
     
     .contenedor-ods-fijo img {
-        height: 320px !important;
+        height: 280px !important;
         object-fit: contain !important;
         width: auto !important;
         margin: 0 auto !important;
@@ -133,7 +133,7 @@ with st.sidebar:
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo de ley: 1%):", 1.0, 3.0, 1.0, step=0.1)
     st.metric(label="Fondo Disponible Simulado", value=f"${19000 * porcentaje:,.1f}M COP")
 
-# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas una sola vez en la raíz)
+# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas estrictamente en la raíz para evitar duplicación)
 tab_origen, tab_ruta, tab_metas = st.tabs([
     "Ⅰ. El Origen y El Reto", 
     "Ⅱ. La Ruta Táctica (PlanTacticoSH_CV)", 
@@ -149,7 +149,7 @@ with tab_origen:
     except:
         pass
 
-    col_text, col_video = st.columns([10, 10])
+    col_text, col_video = st.columns([5, 10])
     with col_text:
         st.markdown("### 🌊 Diagnóstico y Dependencia Socio-Ecológica")
         st.write("""
@@ -187,13 +187,13 @@ with tab_ruta:
     with col_t1:
         tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True)
     with col_t2:
-        # Eliminada la opción "General" para solucionar el bug de duplicación estructural
+        # Menú dinámico limpio y funcional sin duplicaciones
         programa_focus = st.selectbox(
             "Enfoque Estratégico Dinámico:", 
             ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"]
         )
 
-    # Base de datos unificada
+    # Base de datos unificada de la matriz técnica oficial
     @st.cache_data
     def obtener_matriz_tecnica_limpia():
         try:
@@ -233,7 +233,7 @@ with tab_ruta:
             "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
         ]
         
-        # Mapeo estricto solicitado: Línea 1 -> Fase I, Línea 2 -> Fase II, Línea 3 -> Fase III
+        # Conexiones estructuradas por flujos temporales
         sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
         targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
         values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
@@ -276,7 +276,7 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
 
-        # CONTROL INTERACTIVO SITUACIONAL
+        # CONTROL INTERACTIVO SITUACIONAL EXCLUSIVO
         if "2.1 Gran Pacto" in programa_focus:
             st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
             col_pacto_txt, col_pacto_img = st.columns([8, 4])
@@ -326,19 +326,6 @@ with tab_ruta:
             </div>
         """, unsafe_allow_html=True)
 
-    else:
-        col_l, col_f = st.columns(2)
-        with col_l:
-            opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
-            filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l)
-        with col_f:
-            filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I", "Fase II", "Fase III"], default="Todas")
-            
-        df_ver = df_matriz.copy()
-        if filtro_l != "Todas":
-            df_ver = df_ver[df_ver["Línea Estratégica"] == filtro_l]
-        st.dataframe(df_ver, use_container_width=True, hide_index=True)
-
 # ==========================================
 # PESTAÑA III: EL RETORNO DEL AGUA
 # ==========================================
@@ -358,7 +345,7 @@ with tab_metas:
         st.markdown('</div>', unsafe_allow_html=True)
             
     with col_ods:
-        st.markdown("#### **🌍 Alignment con Objetivos Globales**")
+        st.markdown("#### **🌍 Alineación con Objetivos Globales**")
         st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad:")
         
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
