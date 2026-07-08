@@ -80,7 +80,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 3. MARGEN SUPERIOR: DOS COLUMNAS ASIMÉTRICAS PARA BALANCEAR EL LOGO (1/6) Y EL TÍTULO CENTRADO
-col_logo, col_tit = st.columns([0.5, 10.5])
+col_logo, col_tit = st.columns([0.7, 10.0])
 
 with col_logo:
     st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%;'>", unsafe_allow_html=True)
