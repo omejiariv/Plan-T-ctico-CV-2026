@@ -170,7 +170,7 @@ if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
     with col_dim2:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>2. Disponibilidad Confiable</strong><p style="font-size:13.5px !important; margin-top:5px;">Analisis integral de la dinamica de la oferta hídrica rquerida para el metabolismo de la Región Central de Antioquia.</p></div>', unsafe_allow_html=True)
     with col_dim3:
-        st.markdown('<div class="card-glass" style="border-top: 3px solid #10B981; height: 100%; text-align:center;"><strong>3. Calidad Segura</strong><p style="font-size:13.5px !important; margin-top:5px;">Mitigar la sedimentación y cargas contaminantes en las microcuencas abastecedoras.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #10B981; height: 100%; text-align:center;"><strong>3. Calidad Segura</strong><p style="font-size:13.5px !important; margin-top:5px;">Analisis prospectivo de la dinámica de la sedimentación y cargas contaminantes en los Sistemas Hídricos Territoriales Estratégicos.</p></div>', unsafe_allow_html=True)
     with col_dim4:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #EF4444; height: 100%; text-align:center;"><strong>4. Riesgos Gestionados</strong><p style="font-size:13.5px !important; margin-top:5px;">Identificar, evaluar y priorizar los peligros asociados a eventos extremos que amenazan la disponibilidad, calidad y acceso al agua para la población, los ecosistemas y la economía.</p></div>', unsafe_allow_html=True)
     with col_dim5:
