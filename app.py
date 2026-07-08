@@ -240,8 +240,8 @@ with tab_contexto:
     with col_c2:
         st.markdown('<div class="contenedor-crisis-fijo">', unsafe_allow_html=True)
         if categoria_riesgo == "⚠️ Diagnóstico Crítico":
-            try: st.image("data/CrisisAguaClima/Sequia_Embalse_Guatape.png", use_container_width=True)
-            except: st.image("data/EmbalseRG.png", use_container_width=True)
+            try: st.image("data/CrisisAguaClima/image_c9d060.jpg", use_container_width=True)
+            except: st.image("data/EmbalseRG.jpg", use_container_width=True)
             
         elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
             try: st.image("data/CrisisAguaClima/embalseseco.jpg", use_container_width=True)
@@ -468,7 +468,7 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([7, 3])
+    col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
