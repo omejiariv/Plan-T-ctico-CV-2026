@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Redimensionamiento y Layout Cohesivo)
+# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Redimensionamiento, Fuentes y Layout)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -70,9 +70,9 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
+    /* CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES CRISIS */
     .contenedor-ficha-fija img {
-        height: 310px !important;
+        height: 320px !important;
         width: 100% !important;
         object-fit: fill !important;
         border-radius: 12px;
@@ -81,10 +81,19 @@ st.markdown("""
     }
     
     .contenedor-ods-fijo img {
-        height: 310px !important;
+        height: 320px !important;
         object-fit: contain !important;
         width: auto !important;
         margin: 0 auto !important;
+        display: block !important;
+    }
+    
+    /* Ajuste de escala para el visor de la Pestaña 0 */
+    .contenedor-crisis-fijo img {
+        height: 360px !important;
+        object-fit: cover !important;
+        width: 100% !important;
+        border-radius: 12px;
         display: block !important;
     }
     
@@ -133,8 +142,7 @@ with st.sidebar:
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo de ley: 1%):", 1.0, 3.0, 1.0, step=0.1)
     st.metric(label="Fondo Disponible Simulado", value=f"${19000 * porcentaje:,.1f}M COP")
 
-# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas estrictamente en la raíz para evitar duplicación de la barra superior)
-# 💥 SOLUCIÓN DEFINITIVA: Se declara la Pestaña 0 al inicio como el marco conceptual innegociable
+# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas una sola vez en la raíz para evitar fallas lógicas de navegación)
 tab_contexto, tab_origen, tab_ruta, tab_metas = st.tabs([
     "0. Seguridad Hídrica Integral",
     "Ⅰ. El Origen y El Reto", 
@@ -143,42 +151,107 @@ tab_contexto, tab_origen, tab_ruta, tab_metas = st.tabs([
 ])
 
 # ==========================================
-# NUEVA PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
+# PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
 # ==========================================
 with tab_contexto:
     st.markdown("### 🌍 El Punto de Inflexión Climático y Territorial")
     st.write("""
-    La seguridad hídrica ha dejado de ser un asunto estrictamente ambiental para transformarse en el **activo más crítico y vulnerable de la estabilidad social y económica**[cite: 3]. 
-    La intensificación del ciclo hidrológico impulsada por la crisis climática sitúa a los territorios ante riesgos financieros y operativos sin precedentes[cite: 3].
+    La seguridad hídrica ha dejado de ser un asunto estrictamente ambiental para transformarse en el **activo más crítico y vulnerable de la estabilidad social, ecosistémica y económica** de nuestra era[cite: 3]. 
+    La intensificación de fenómenos hidroclimáticos extremos sitúa a la Región Central ante retos de gestión ineludibles[cite: 3].
     """)
     
-    col_contexto_text, col_contexto_vid = st.columns([10, 10])
+    # Selector interactivo para navegar por los activos gráficos que subiste
+    categoria_riesgo = st.radio(
+        "Explore las Dimensiones del Riesgo Territorial Hidroclimático:",
+        ["⚠️ Crisis Climática Regional", "🔥 Sequía y Desabastecimiento (El Niño)", "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)", "🚜 Pérdida de Cobertura y Erosión"],
+        horizontal=True
+    )
     
-    # 💥 CORRECCIÓN: Usamos exactamente el nombre 'col_contexto_text' que fue declarado arriba
-    with col_contexto_text:
-        try:
-            # Diapositiva conceptual de crisis climática que subiste
-            st.image("data/image_c9d060.jpg", use_container_width=True)
-        except:
-            pass
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_c1, col_c2 = st.columns([10, 10])
+    
+    with col_c1:
+        if categoria_riesgo == "⚠️ Crisis Climática Regional":
+            st.markdown("#### **Vulnerabilidad Estructural en Antioquia**")
+            st.write("""
+            Las proyecciones térmicas indican un incremento sostenido de la temperatura media andina, alterando de manera drástica la regularidad de los patrones de precipitación. 
+            Esta inestabilidad somete a una presión constante a la infraestructura de almacenamiento y abastecimiento regional.
+            """)
+            st.markdown("""
+                <div class="card-glass" style="border-left: 4px solid #EF4444;">
+                    <span style="color:#EF4444; font-weight:600; text-transform:uppercase; font-size:11px;">Presión Sobre Embalses</span>
+                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
+                        Los eventos extremos más frecuentes comprometen los niveles operativos de los sistemas abastecedores externos, requiriendo un enfoque de mitigación basado en la ciencia.
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
             
-        st.markdown("""
-            <div class="card-glass" style="border-left: 4px solid #EF4444;">
-                <span style="color:#EF4444; font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:0.5px;">Impulsores de Cambio en Antioquia</span>
-                <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#E2E8F0;">
-                    La alternancia extrema entre sequías prolongadas (El Niño), aguaceros torrenciales (La Niña) e incendios de cobertura vegetal, presionan la infraestructura gris y aceleran la degradación de los ecosistemas reguladores de la Región Central[cite: 3].
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-    with col_contexto_vid:
-        st.markdown("#### **🎥 Mosaico Situacional: Las Consecuencias de la Inseguridad**")
-        try:
-            # Espacio reservado para tu nuevo video animado en secuencia
-            st.video("data/Inseguridad_Global.mp4")
-        except:
-            st.info("Espacio reservado para el video editado en secuencia (sequías, embalses secos, inundaciones urbanas, incendios forestales y desabastecimiento por carrotanques).")
+        elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
+            st.markdown("#### **Estrés Hídrico Extremo**")
+            st.write("""
+            Durante la ocurrencia del fenómeno de El Niño, los caudales base disminuyen críticamente, desencadenando incendios de cobertura vegetal en zonas de recarga y forzando el racionamiento o desabastecimiento severo en comunidades rurales y periurbanas.
+            """)
+            st.markdown("""
+                <div class="card-glass" style="border-left: 4px solid #F59E0B;">
+                    <span style="color:#F59E0B; font-weight:600; text-transform:uppercase; font-size:11px;">Riesgo Financiero y de Consumo</span>
+                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
+                        La pérdida de capacidad reguladora de los suelos expone el desabastecimiento crónico, obligando al uso de carrotanques y comprometiendo el ROI de la matriz agrícola.
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
             
+        elif categoria_riesgo == "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)":
+            st.markdown("#### **Avenidas Torrenciales Urbanas y Rurales**")
+            st.write("""
+            El fenómeno de La Niña satura los suelos de las vertientes andinas de forma acelerada. Sin la amortiguación natural de los bosques de galería, las lluvias torrenciales saturan los drenajes urbanos y provocan crecientes súbitas e inundaciones devastadoras.
+            """)
+            st.markdown("""
+                <div class="card-glass" style="border-left: 4px solid #3B82F6;">
+                    <span style="color:#3B82F6; font-weight:600; text-transform:uppercase; font-size:11px;">Colapso de Estructuras</span>
+                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
+                        Los picos de inundación arrastran sedimentos que saturan las plantas de tratamiento y erosionan las obras civiles y vías de acceso vitales.
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        elif categoria_riesgo == "🚜 Pérdida de Cobertura y Erosión":
+            st.markdown("#### **Degradación de la Infraestructura Natural**")
+            st.write("""
+            La deforestación histórica de las fajas riparias altera directamente la salud de las cuencas. El suelo desnudo pierde su capacidad de infiltración, acelerando los procesos de remoción en masa y la socavación de riberas.
+            """)
+            st.markdown("""
+                <div class="card-glass" style="border-left: 4px solid #10B981;">
+                    <span style="color:#10B981; font-weight:600; text-transform:uppercase; font-size:11px;">El Antídoto Técnico</span>
+                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
+                        La restauración biológica mediante Soluciones Basadas en la Naturaleza frena la escorrentía rápida y estabiliza mecánicamente los taludes marginales.
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+
+    with col_c2:
+        # Renderizado dinámico y controlado de tus archivos cargados respetando la ruta de la nueva subcarpeta
+        st.markdown('<div class="contenedor-crisis-fijo">', unsafe_allow_html=True)
+        if categoria_riesgo == "⚠️ Crisis Climática Regional":
+            try: st.image("data/CrisisAguaClima/image_c9d060.jpg", use_container_width=True)
+            except: st.image("data/EmbalseRG.jpg", use_container_width=True)
+            
+        elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
+            try: st.image("data/CrisisAguaClima/Sequia_Embalse_Guatapé.png", use_container_width=True)
+            except:
+                try: st.image("data/CrisisAguaClima/embalseseco.jpg", use_container_width=True)
+                except: st.info("Desplegando evidencia de estrés hídrico extremo (Embalses secos / Incendios forestales)[cite: 3].")
+                
+        elif categoria_riesgo == "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)":
+            try: st.image("data/CrisisAguaClima/aguaceros_Medellin.jpg", use_container_width=True)
+            except:
+                try: st.image("data/CrisisAguaClima/inundaciones_Medellin.png", use_container_width=True)
+                except: st.info("Desplegando evidencia de inundaciones y desbordamientos en infraestructura urbana.")
+                
+        elif categoria_riesgo == "🚜 Pérdida de Cobertura y Erosión":
+            try: st.image("data/CrisisAguaClima/SocavacionRio.jpg", use_container_width=True)
+            except: st.info("Desplegando evidencia de pérdida de cobertura boscosa riparia y socavación crítica de riberas.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
 # ==========================================
 # PESTAÑA I: EL ORIGEN Y EL RETO
 # ==========================================
@@ -226,13 +299,13 @@ with tab_ruta:
     with col_t1:
         tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True)
     with col_t2:
-        # Selector de foco temático aislado de forma segura dentro de la pestaña II
+        # Lógica de filtrado interna y hermética para evitar mutaciones de pestañas
         programa_focus = st.selectbox(
             "Enfoque Estratégico Dinámico (Foco Sankey):", 
             ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"]
         )
 
-    # Base de datos de la matriz táctica oficial
+    # Carga analítica de la base de datos
     @st.cache_data
     def obtener_matriz_tecnica_limpia():
         try:
@@ -272,7 +345,6 @@ with tab_ruta:
             "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
         ]
         
-        # Mapeo estricto: Línea 1 -> Fase I, Línea 2 -> Fase II, Línea 3 -> Fase III
         sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
         targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
         values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
@@ -315,7 +387,7 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
 
-        # RENDERIZADO DE CONTENIDOS SITUACIONALES SEGÚN SELECCIÓN
+        # DESPLIEGUE MULTIMEDIA UBICADO ESTRICTAMENTE DEBAJO DEL SANKEY
         if "2.1 Gran Pacto" in programa_focus:
             st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
             col_pacto_txt, col_pacto_img = st.columns([8, 4])
@@ -327,7 +399,7 @@ with tab_ruta:
                 </div>
                 """, unsafe_allow_html=True)
             with col_pacto_img:
-                try: st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True)
+                try: st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True)
                 except: st.image("data/aliados.png", use_container_width=True)
 
         elif "3.2" in programa_focus:
@@ -337,7 +409,7 @@ with tab_ruta:
             with col_v1:
                 st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural**")
                 try: st.video("data/Prog2_Vulnerabilidad.mp4")
-                except: st.info("Simulación de erosión crítica actual de la ronda riparia.")
+                except: st.info("Simulación de erosión crítica actual.")
             with col_v2:
                 st.markdown("#### **🌱 Escenario B: Resiliencia Territorial con SbN**")
                 try: st.video("data/Prog2_Resiliencia.mp4")
@@ -366,10 +438,10 @@ with tab_ruta:
         """, unsafe_allow_html=True)
 
     else:
-        # Modo de datos tabular tradicional
+        # Visualización tabular tradicional
         col_l, col_f = st.columns(2)
         with col_l:
-            opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
+            opciones_l = ["Todas"] + list(df_metriz["Línea Estratégica"].dropna().unique())
             filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l)
         with col_f:
             filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I", "Fase II", "Fase III"], default="Todas")
