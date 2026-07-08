@@ -377,7 +377,7 @@ elif st.session_state.menu_activo == "Ⅱ. La Ruta Táctica":
 elif st.session_state.menu_activo == "Ⅲ. El Retorno del Agua":
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([10, 10])
+    col_fichas, col_ods = st.columns([7, 3])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
@@ -391,7 +391,7 @@ elif st.session_state.menu_activo == "Ⅲ. El Retorno del Agua":
             
     with col_ods:
         st.markdown("#### **🌍 Alineación con Objetivos Globales**")
-        st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad:")
+        st.write("Metas globales de sostenibilidad:")
         
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
         try: st.image("data/ODS_CV.png", use_container_width=True)
