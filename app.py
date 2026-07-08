@@ -288,7 +288,7 @@ with tab_ruta:
                 </div>
                 """, unsafe_allow_html=True)
             with col_pacto_img:
-                try: st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True)
+                try: st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True)
                 except: st.image("data/aliados.png", use_container_width=True)
 
         elif "3.2" in programa_focus:
