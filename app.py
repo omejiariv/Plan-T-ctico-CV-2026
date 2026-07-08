@@ -174,7 +174,7 @@ if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
     with col_dim4:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #EF4444; height: 100%; text-align:center;"><strong>4. Riesgos Gestionados</strong><p style="font-size:13.5px !important; margin-top:5px;">Amortiguar los picos climáticos extremos de El Niño y La Niña mediante infraestructura verde.</p></div>', unsafe_allow_html=True)
     with col_dim5:
-        st.markdown('<div class="card-glass" style="border-top: 3px solid #F59E0B; height: 100%; text-align:center;"><strong>5. Resiliencia Colectiva Integral</strong><p style="font-size:13.5px !important; margin-top:5px;">Sostener la gobernanza e inteligencia socioecológica de las comunidades andinas.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #F59E0B; height: 100%; text-align:center;"><strong>5. Resiliencia Colectiva Integral</strong><p style="font-size:13.5px !important; margin-top:5px;">Ruta metodológica clara hacia la seguridad hídrica y Climática.</p></div>', unsafe_allow_html=True)
     with col_dim6:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>6. Gobernanza adaptativa</strong><p style="font-size:13.5px !important; margin-top:5px;">Un Modelo flexible, multinivel y colaborativo, diseñado para articular actores, gestionar entornos de alta complejidad socioecologica y Alto riesgo global.</p></div>', unsafe_allow_html=True)
     
