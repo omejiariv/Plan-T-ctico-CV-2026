@@ -257,7 +257,7 @@ with tab_contexto:
 # ==========================================
 with tab_origen:
     try:
-        st.image("data/EmbalseRG.jpg", caption="Ecosistema Estratégico Abastecedor - Región Central Funcional de Antioquia", use_container_width=True)
+        st.image("data/EmbalseRG.png", caption="Ecosistema Estratégico Abastecedor - Región Central Funcional de Antioquia", use_container_width=True)
     except:
         pass
 
@@ -309,7 +309,7 @@ with tab_ruta:
     @st.cache_data
     def obtener_matriz_tecnica_limpia():
         try:
-            df = pd.read_csv("data/PlanTacticoSH_CV.xls - Hoja1.csv")
+            df = pd.read_csv("data/PlanTacticoSH_CV.xls")
             df.columns = [c.strip() for c in df.columns]
             return df
         except:
