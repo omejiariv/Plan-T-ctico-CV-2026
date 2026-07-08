@@ -222,8 +222,8 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    # Simetría y proporción áurea entre los dos bloques de impacto (50% / 50%)
-    col_fichas, col_ods = st.columns([10, 10])
+    # Simetría y proporción áurea entre los dos bloques de impacto (60% / 40%)
+    col_fichas, col_ods = st.columns([8, 4])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
