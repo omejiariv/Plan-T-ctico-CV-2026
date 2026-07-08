@@ -289,7 +289,7 @@ with tab_ruta:
                 """, unsafe_allow_html=True)
             with col_pacto_img:
                 try:
-                    st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True) # Nombre genérico del archivo del logo subido
+                    st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True) # Nombre genérico del archivo del logo subido
                 except:
                     st.image("data/aliados.png", use_container_width=True)
 
