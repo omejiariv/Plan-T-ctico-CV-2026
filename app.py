@@ -168,7 +168,7 @@ if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
     with col_dim1:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>1. Integridad ecosistémica</strong><p style="font-size:13.5px !important; margin-top:5px;">Capacidad para automantenerse y autorregularse, conservando su composición de especies, estructura física y sus funciones naturales.</p></div>', unsafe_allow_html=True)
     with col_dim2:
-        st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>2. Disponibilidad Confiable</strong><p style="font-size:13.5px !important; margin-top:5px;">Analisis integral de la dinamica de la oferta hídrica rquerida para el metabolismo de la Región Central de Antioquia.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>2. Disponibilidad Confiable</strong><p style="font-size:13.5px !important; margin-top:5px;">Analisis integral de la dinamica de accesibilidad a agua segura y continua para suplir las necesidades humanas, industriales y de los ecosistemas, con los estándares de calidad.</p></div>', unsafe_allow_html=True)
     with col_dim3:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #10B981; height: 100%; text-align:center;"><strong>3. Calidad Segura</strong><p style="font-size:13.5px !important; margin-top:5px;">Analisis prospectivo de la dinámica de la sedimentación y cargas contaminantes en los Sistemas Hídricos Territoriales Estratégicos.</p></div>', unsafe_allow_html=True)
     with col_dim4:
