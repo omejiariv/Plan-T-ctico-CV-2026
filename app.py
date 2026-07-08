@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. INYECCIÓN MAJESTUOSA DE CSS (Estilo Aleph + Estándares TNC)
+# 2. INYECCIÓN AVANZADA DE CSS (Control de Altura de Imágenes y Estilos)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
@@ -21,46 +21,36 @@ st.markdown("""
         font-family: 'Montserrat', sans-serif;
     }
     
-    /* Contenedor del Encabezado para alineación vertical perfecta */
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 20px;
-        margin-bottom: 25px;
-    }
-    
-    /* Título Superior: Centrado, de gran tamaño y vistoso */
+    /* Título Superior: Centrado y vistoso */
     .titulo-vistoso {
         font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         color: #FFFFFF;
-        font-size: 36px;
+        font-size: 34px;
         letter-spacing: 0.5px;
         text-align: center;
         margin: 0;
         text-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
     }
     
-    /* El Lema institucional como bloque de energía narrativo */
+    /* Cajetín del Lema Reubicado */
     .lema-wow {
         background: linear-gradient(135deg, rgba(2, 132, 199, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
         border: 1px solid rgba(56, 189, 248, 0.25);
-        padding: 22px;
-        border-radius: 20px;
+        padding: 20px;
+        border-radius: 16px;
         color: #F1F5F9;
         text-align: center;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 400;
-        line-height: 1.6;
+        line-height: 1.5;
         font-style: italic;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        margin: 20px auto 35px auto;
-        max-width: 85%;
+        margin: 15px auto 25px auto;
+        max-width: 90%;
     }
     
-    /* Tarjetas estilo vidrio esmerilado con mayor contraste técnico */
+    /* Tarjetas estilo vidrio esmerilado */
     .card-glass {
         background: rgba(15, 23, 42, 0.7);
         border: 1px solid rgba(56, 189, 248, 0.15);
@@ -68,10 +58,17 @@ st.markdown("""
         border-radius: 16px;
         backdrop-filter: blur(12px);
         margin-bottom: 25px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
     
-    /* Ajuste estético para tablas de datos de fondo oscuro */
+    /* CONTROL FORENSE: Contenedor simétrico para forzar que las imágenes NO se desborden */
+    .contenedor-simetrico img {
+        max-height: 480px !important;
+        object-fit: contain !important;
+        width: auto !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+    
     .stDataFrame, table {
         background-color: rgba(10, 25, 47, 0.4) !important;
         border-radius: 12px;
@@ -79,7 +76,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. MARGEN SUPERIOR: DOS COLUMNAS ASIMÉTRICAS PARA BALANCEAR EL LOGO (1/6) Y EL TÍTULO CENTRADO
+# 3. ENCABEZADO: COLUMNAS REAJUSTADAS SEGÚN TU ESPECIFICACIÓN (0.7 y 10.0)
 col_logo, col_tit = st.columns([0.7, 10.0])
 
 with col_logo:
@@ -96,18 +93,18 @@ with col_logo:
 with col_tit:
     st.markdown('<h1 class="titulo-vistoso">Un Plan de Seguridad Hídrica para Ciudades y Sociedades Seguras</h1>', unsafe_allow_html=True)
 
-# 🌟 TU LEMA INSTITUCIONAL EN GRANDE
+# 💥 RESPUESTA AL PUNTO 1: CAJETÍN DEL LEMA UBICADO JUSTO DEBAJO DEL TÍTULO PRINCIPAL (FUERA DE LAS PESTAÑAS)
 st.markdown("""
     <div class="lema-wow">
         "Juntos, somos más Sostenibles, más Efectivos, más Visibles, más Seguros y más Fuertes."
     </div>
 """, unsafe_allow_html=True)
 
-# 4. BARRA LATERAL (Panel de Control de Datos Regionales)
+# 4. BARRA LATERAL INSTITUCIONAL
 with st.sidebar:
     st.markdown("<h3 style='color:#38BDF8; text-align:center;'>Gobernanza Territorial</h3>", unsafe_allow_html=True)
     st.markdown("---")
-    st.caption("Fondo de Agua • Sistema de Inteligencia Hidro-Territorial (SIHT-CV) para el monitoreo físico-financiero trimestral bajo estándares internacionales.")
+    st.caption("Fondo de Agua • Sistema de Inteligencia Hidro-Territorial (SIHT-CV) para el monitoreo físico-financiero trimestral.")
     st.markdown("---")
     st.markdown("### 📈 Escenarios de Financiación")
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo legal 1%):", 1.0, 3.0, 1.0, step=0.1)
@@ -136,23 +133,20 @@ with tab_origen:
         El metabolismo urbano de Medellín depende críticamente de cuencas e infraestructuras ecológicas externas localizadas en el Norte y Oriente de Antioquia. 
         Los sistemas reguladores de **Río Grande II y La Fe** sostienen la vida colectiva y la resiliencia del territorio.
         """)
-        
-        # Enriquecimiento con los pilares del Plan Estratégico CV 2026
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #10B981;">
                 <span style="color:#10B981; font-weight:600; text-transform:uppercase; font-size:11px;">Pilar 1: Soluciones Basadas en la Naturaleza (SbN)</span>
                 <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                    Restauración dirigida de coberturas y mantenimiento de la conectividad ecohidrológica en la Estructura Ecológica Principal de las cuencas aportantes[cite: 39].
+                    Restauración dirigida de coberturas y mantenimiento de la conectividad ecohidrológica en la Estructura Ecológica Principal de las cuencas aportantes.
                 </p>
             </div>
             <div class="card-glass" style="border-left: 4px solid #38BDF8;">
                 <span style="color:#38BDF8; font-weight:600; text-transform:uppercase; font-size:11px;">Pilar 2: Rigor Científico Integrado</span>
                 <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                    Operación de la plataforma SIHT-CV para generar modelación socioecológica predictiva regional en tiempo real ante el cambio climático[cite: 32, 33].
+                    Operación de la plataforma SIHT-CV para generar modelación socioecológica predictiva regional en tiempo real ante el cambio climático.
                 </p>
             </div>
         """, unsafe_allow_html=True)
-        
     with col_video:
         st.markdown("#### **🎥 Materialización de la Visión Táctica**")
         try:
@@ -167,7 +161,6 @@ with tab_ruta:
     st.markdown("### 📋 Cuadro de Mando Interactivo del Plan Táctico")
     st.write("Filtre la matriz oficializada de acciones prioritarias del orquestador hidro-territorial:")
     
-    # Inyección directa de la base de datos de la matriz técnica para blindar la carga
     @st.cache_data
     def obtener_matriz_tecnica_limpia():
         try:
@@ -204,7 +197,7 @@ with tab_ruta:
         opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
         filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l)
     with col_f:
-        filtro_f = st.segmented_control("Filtrar por Horizonte Temporal de Ejecución:", ["Todas", "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"], default="Todas")
+        filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"], default="Todas")
         
     df_ver = df_matriz.copy()
     if filtro_l != "Todas":
@@ -222,27 +215,30 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    # Simetría y proporción áurea entre los dos bloques de impacto (70% / 30%)
-    col_fichas, col_ods = st.columns([7, 3])
+    # Simetría absoluta en dos columnas idénticas (50% / 50%)
+    col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
         ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True)
         fichas_map = {"Ficha 1 - Línea de Base": "P1", "Ficha 2 - Inteligencia": "P2", "Ficha 3 - Gobernanza": "P3", "Ficha 4 - Intervenciones": "P4", "Ficha 5 - Monitoreo": "P5"}
         
+        # 💥 RESPUESTA AL PUNTO 3: Encapsulado CSS para evitar que se desborde verticalmente
+        st.markdown('<div class="contenedor-simetrico">', unsafe_allow_html=True)
         try:
             st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
         except:
             st.info("Desplegando gráfica analítica del indicador...")
+        st.markdown('</div>', unsafe_allow_html=True)
             
     with col_ods:
         st.markdown("#### **🌍 Alineación con Objetivos Globales**")
-        st.write("Estructura simétrica del Plan frente a las metas mundiales de sostenibilidad:")
+        st.write("Estructura escalada del Plan frente a las metas mundiales de sostenibilidad:")
         
-        # Columna de escalado interno para encuadrar perfectamente la gota de los ODS con el gráfico de la izquierda
-        col_escala, _ = st.columns([8.5, 1.5])
-        with col_escala:
-            try:
-                st.image("data/ODS_CV.png", use_container_width=True)
-            except:
-                pass
+        # 💥 RESPUESTA AL PUNTO 3: Mismo encapsulado para la gota de los ODS asegurando simetría perfecta de alturas
+        st.markdown('<div class="contenedor-simetrico">', unsafe_allow_html=True)
+        try:
+            st.image("data/ODS_CV.png", use_container_width=True)
+        except:
+            pass
+        st.markdown('</div>', unsafe_allow_html=True)
