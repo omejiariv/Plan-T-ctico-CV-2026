@@ -143,7 +143,7 @@ tab_contexto, tab_origen, tab_ruta, tab_metas = st.tabs([
 ])
 
 # ==========================================
-# 💥 NUEVA PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
+# NUEVA PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
 # ==========================================
 with tab_contexto:
     st.markdown("### 🌍 El Punto de Inflexión Climático y Territorial")
@@ -154,7 +154,8 @@ with tab_contexto:
     
     col_contexto_text, col_contexto_vid = st.columns([10, 10])
     
-    with col_text:
+    # 💥 CORRECCIÓN: Usamos exactamente el nombre 'col_contexto_text' que fue declarado arriba
+    with col_contexto_text:
         try:
             # Diapositiva conceptual de crisis climática que subiste
             st.image("data/image_c9d060.jpg", use_container_width=True)
@@ -173,11 +174,11 @@ with tab_contexto:
     with col_contexto_vid:
         st.markdown("#### **🎥 Mosaico Situacional: Las Consecuencias de la Inseguridad**")
         try:
-            # 💥 ESPACIO RESERVADO PARA TU NUEVO VIDEO ANIMADO EN SECUENCIA
+            # Espacio reservado para tu nuevo video animado en secuencia
             st.video("data/Inseguridad_Global.mp4")
         except:
             st.info("Espacio reservado para el video editado en secuencia (sequías, embalses secos, inundaciones urbanas, incendios forestales y desabastecimiento por carrotanques).")
-
+            
 # ==========================================
 # PESTAÑA I: EL ORIGEN Y EL RETO
 # ==========================================
