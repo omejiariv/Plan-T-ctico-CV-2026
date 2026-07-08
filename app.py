@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Redimensionamiento y Simetría)
+# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Alturas, Espacios y Layout)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -70,9 +70,9 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* 💥 CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
+    /* CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
     .contenedor-ficha-fija img {
-        height: 360px !important;
+        height: 320px !important;
         width: 100% !important;
         object-fit: fill !important;
         border-radius: 12px;
@@ -81,7 +81,7 @@ st.markdown("""
     }
     
     .contenedor-ods-fijo img {
-        height: 360px !important;
+        height: 320px !important;
         object-fit: contain !important;
         width: auto !important;
         margin: 0 auto !important;
@@ -133,7 +133,7 @@ with st.sidebar:
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo de ley: 1%):", 1.0, 3.0, 1.0, step=0.1)
     st.metric(label="Fondo Disponible Simulado", value=f"${19000 * porcentaje:,.1f}M COP")
 
-# 5. ESTRUCTURA NARRATIVA EN PESTAÑAS
+# 5. ESTRUCTURA GLOBAL EN PESTAÑAS (Declaradas una sola vez en la raíz)
 tab_origen, tab_ruta, tab_metas = st.tabs([
     "Ⅰ. El Origen y El Reto", 
     "Ⅱ. La Ruta Táctica (PlanTacticoSH_CV)", 
@@ -187,8 +187,11 @@ with tab_ruta:
     with col_t1:
         tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True)
     with col_t2:
-        # Interacción avanzada para desplegar las agendas específicas solicitadas
-        programa_focus = st.selectbox("Enfoque Estratégico Dinámico:", ["General", "2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"])
+        # Eliminada la opción "General" para solucionar el bug de duplicación estructural
+        programa_focus = st.selectbox(
+            "Enfoque Estratégico Dinámico:", 
+            ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"]
+        )
 
     # Base de datos unificada
     @st.cache_data
@@ -230,10 +233,7 @@ with tab_ruta:
             "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
         ]
         
-        # 💥 AJUSTE ESTRICTO SOLICITADO: Mapeo de ramas finales dirigidas por línea estructural
-        # Línea 1 (Indices 3,4,5) -> Fase I (Index 11)
-        # Línea 2 (Indices 6,7)   -> Fase II (Index 12)
-        # Línea 3 (Indices 8,9,10)-> Fase III (Index 13)
+        # Mapeo estricto solicitado: Línea 1 -> Fase I, Línea 2 -> Fase II, Línea 3 -> Fase III
         sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
         targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
         values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
@@ -276,7 +276,7 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
 
-        # 💥 CONTROL INTERACTIVO MULTIMEDIA: Despliegue situacional de mensajes y videos
+        # CONTROL INTERACTIVO SITUACIONAL
         if "2.1 Gran Pacto" in programa_focus:
             st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
             col_pacto_txt, col_pacto_img = st.columns([8, 4])
@@ -288,10 +288,8 @@ with tab_ruta:
                 </div>
                 """, unsafe_allow_html=True)
             with col_pacto_img:
-                try:
-                    st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True) # Nombre genérico del archivo del logo subido
-                except:
-                    st.image("data/aliados.png", use_container_width=True)
+                try: st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True)
+                except: st.image("data/aliados.png", use_container_width=True)
 
         elif "3.2" in programa_focus:
             st.markdown("### 🌱 Programa 2: Recuperación Ecohidrológica Multifuncional")
@@ -317,7 +315,7 @@ with tab_ruta:
                 try: st.video("data/Escuelas_Taller.mp4")
                 except: st.warning("Subiendo archivo multimedia 'Escuelas_Taller.mp4'...")
         
-        # Acceso directo permanente al SIHCLIM
+        # Enlace permanente a SIHCLIM
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: 15px; text-align: center;">
                 <p style="margin: 0; font-size: 16px;">
@@ -329,7 +327,6 @@ with tab_ruta:
         """, unsafe_allow_html=True)
 
     else:
-        # Modo de visualización tradicional por tablas
         col_l, col_f = st.columns(2)
         with col_l:
             opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
@@ -348,28 +345,23 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([7, 3])
+    col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
         ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True)
         fichas_map = {"Ficha 1 - Línea de Base": "P1", "Ficha 2 - Inteligencia": "P2", "Ficha 3 - Gobernanza": "P3", "Ficha 4 - Intervenciones": "P4", "Ficha 5 - Monitoreo": "P5"}
         
-        # Marco rígido e inamovible para estabilizar las 5 imágenes
         st.markdown('<div class="contenedor-ficha-fija">', unsafe_allow_html=True)
-        try:
-            st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
-        except:
-            st.info("Desplegando gráfica analítica del indicador...")
+        try: st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
+        except: st.info("Desplegando gráfica analítica del indicador...")
         st.markdown('</div>', unsafe_allow_html=True)
             
     with col_ods:
-        st.markdown("#### **🌍 Alineación con Objetivos Globales**")
-        st.write("Estructura escalada del Plan frente a las metas mundiales de sostenibilidad:")
+        st.markdown("#### **🌍 Alignment con Objetivos Globales**")
+        st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad:")
         
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
-        try:
-            st.image("data/ODS_CV.png", use_container_width=True)
-        except:
-            pass
+        try: st.image("data/ODS_CV.png", use_container_width=True)
+        except: pass
         st.markdown('</div>', unsafe_allow_html=True)
