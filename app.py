@@ -70,9 +70,9 @@ st.markdown("""
         margin-bottom: 25px;
     }
     
-    /* 💥 RESPUESTA AL PUNTO 1: Blindaje CSS para que todas las fichas midan EXACTAMENTE lo mismo sin deformar el layout */
+    /* 💥 CONGELAMIENTO RIGUROSO DE FICHAS TÉCNICAS E IMÁGENES ODS */
     .contenedor-ficha-fija img {
-        height: 380px !important;
+        height: 360px !important;
         width: 100% !important;
         object-fit: fill !important;
         border-radius: 12px;
@@ -80,9 +80,8 @@ st.markdown("""
         margin: 0 auto !important;
     }
     
-    /* Contenedor simétrico para la gota de los ODS */
     .contenedor-ods-fijo img {
-        height: 380px !important;
+        height: 360px !important;
         object-fit: contain !important;
         width: auto !important;
         margin: 0 auto !important;
@@ -188,8 +187,8 @@ with tab_ruta:
     with col_t1:
         tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True)
     with col_t2:
-        # 💥 RESPUESTA AL PUNTO 2: Interruptor dinámico para activar la simulación del Programa 2
-        programa_focus = st.selectbox("Enfoque de Programa Técnico (Sankey):", ["Todos los Programas", "Programa 2: Intervención en Quebradas y SbN"])
+        # Interacción avanzada para desplegar las agendas específicas solicitadas
+        programa_focus = st.selectbox("Enfoque Estratégico Dinámico:", ["General", "2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"])
 
     # Base de datos unificada
     @st.cache_data
@@ -214,10 +213,7 @@ with tab_ruta:
                     "1 Pacto de información territorial implementado", "100% de desarrollo del modelo conceptual y primera versión del SIHT-CV", "100% de desarrollo del dashboard SIHT-CV",
                     "100% de suscripción del Gran Pacto por la Seguridad Hídrica de Medellín", "100% de conformación del consejo de seguridad hídrica territorial",
                     "6 km de corredores intervenidos de 10 m de ancho en la cuenca de Río Chico", "Plan Estratégico de Seguridad Hídrica y Resiliencia Territorial formulado y puesto en marcha", "3 ETABs en marcha"
-                ],
-                "Fase I": ["●", "●", "●", "●", "●", "●", "●", "●"],
-                "Fase II": ["●", "●", "●", "", "", "●", "●", "●"],
-                "Fase III": ["●", "●", "●", "", "", "●", "●", "●"]
+                ]
             }
             return pd.DataFrame(datos_oficiales)
 
@@ -228,23 +224,28 @@ with tab_ruta:
         
         nodos = [
             "Línea 1: Inteligencia", "Línea 2: Gobernanza", "Línea 3: Intervenciones",  
-            "1.1 Pacto Info", "1.2 SIHT", "1.3 Dashboard (Clic abajo para abrir SIHCLI-POTER) 🌐",  
-            "2.1 Gran Pacto", "2.2 Consejo SH",  
-            "3.1 Corredor Vivo", "3.2 SbN / AbE (Programa 2) 🌟", "3.3 Escuela-Taller",  
+            "1.1 Pacto Info", "1.2 SIHT", "1.3 Dashboard 🌐",  
+            "2.1 Gran Pacto 🌍", "2.2 Consejo SH",  
+            "3.1 Corredor Vivo", "3.2 SbN / AbE (Prog 2) 🌱", "3.3 Escuela-Taller (ETAB) 💻",  
             "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
         ]
         
-        sources = [0,0,0, 1,1, 2,2,2, 3,3, 4,4, 5,5,5, 6, 7, 8,8,8, 9,9,9, 10,10,10]
-        targets = [3,4,5, 6,7, 8,9,10, 11,12, 11,12, 11,12,13, 11, 11, 11,12,13, 11,12,13, 11,12,13]
-        values  = [1,1,1, 1,1, 1,1,1,  1,1,  1,1,  1,1,1,   1,  1,  1,1,1,  1,1,1,  1,1,1]
+        # 💥 AJUSTE ESTRICTO SOLICITADO: Mapeo de ramas finales dirigidas por línea estructural
+        # Línea 1 (Indices 3,4,5) -> Fase I (Index 11)
+        # Línea 2 (Indices 6,7)   -> Fase II (Index 12)
+        # Línea 3 (Indices 8,9,10)-> Fase III (Index 13)
+        sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
+        targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
+        values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
         
         x_manual = [0.05, 0.05, 0.05,  0.5, 0.5, 0.5,  0.5, 0.5,  0.5, 0.5, 0.5,  0.95, 0.95, 0.95]
         y_manual = [0.1,  0.45, 0.8,   0.05, 0.15, 0.25, 0.42, 0.52, 0.72, 0.82, 0.92, 0.2, 0.5, 0.8]
         
-        # Resaltar la Línea 3 si el Programa 2 está seleccionado
         colores_nodos = ["#0284C7", "#F59E0B", "#10B981", "#38BDF8", "#38BDF8", "#60A5FA", "#FBBF24", "#F59E0B", "#34D399", "#10B981", "#059669", "#6366F1", "#A5B4FC", "#4338CA"]
-        if "Programa 2" in programa_focus:
-            colores_nodos[9] = "#EC4899" # Color rosa fucsia de alto impacto para el nodo 3.2
+        
+        if "2.1 Gran Pacto" in programa_focus: colores_nodos[6] = "#38BDF8"
+        elif "3.2" in programa_focus: colores_nodos[9] = "#EC4899"
+        elif "3.3" in programa_focus: colores_nodos[10] = "#A5B4FC"
             
         fig_sankey = go.Figure(data=[go.Sankey(
             arrangement = "fixed",
@@ -262,11 +263,11 @@ with tab_ruta:
               source = sources,
               target = targets,
               value = values,
-              color = "rgba(236, 72, 153, 0.4)" if "Programa 2" in programa_focus else "rgba(56, 189, 248, 0.15)"
+              color = "rgba(56, 189, 248, 0.15)"
           ))])
         
         fig_sankey.update_layout(
-            title_text="Mapeo de Flujo Estructurado: Sinergia de Programas hacia Fases de Ejecución",
+            title_text="Mapeo Logístico Temporal: Conexión de Acciones con sus Fases de Destino",
             font_size=13,
             font_family="Montserrat",
             paper_bgcolor='rgba(0,0,0,0)',
@@ -275,31 +276,50 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
 
-        # 💥 RESPUESTA AL PUNTO 2: Despliegue sincrónico de las dos animaciones en paralelo para el Programa 2
-        if "Programa 2" in programa_focus:
-            st.markdown("### 🌿 Programa 2: Recuperación Ecohidrológica Multifuncional")
-            st.write("""
-            Intervención de quebradas rurales y periurbanas de Medellín y la Región Central mediante **Soluciones basadas en la Naturaleza (SbN)**. 
-            El objetivo es mitigar riesgos de escorrentía, erosión y crecientes, transformándolas en ejes de infraestructura ecológica de estándar internacional.
-            """)
-            
+        # 💥 CONTROL INTERACTIVO MULTIMEDIA: Despliegue situacional de mensajes y videos
+        if "2.1 Gran Pacto" in programa_focus:
+            st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
+            col_pacto_txt, col_pacto_img = st.columns([8, 4])
+            with col_pacto_txt:
+                st.markdown("""
+                <div class="card-glass" style="border-left: 4px solid #38BDF8; font-size:16.5px; padding:20px;">
+                    <strong>La Semana del Clima de Medellín</strong> es la ventana para convertir la seguridad hídrica en una agenda de ciudad: 
+                    ciencia, innovación, inversión y acción territorial al servicio de la naturaleza y de las personas.
+                </div>
+                """, unsafe_allow_html=True)
+            with col_pacto_img:
+                try:
+                    st.image("data/climate_week_logo.png", caption="Semana del Clima de Medellín", use_container_width=True) # Nombre genérico del archivo del logo subido
+                except:
+                    st.image("data/aliados.png", use_container_width=True)
+
+        elif "3.2" in programa_focus:
+            st.markdown("### 🌱 Programa 2: Recuperación Ecohidrológica Multifuncional")
+            st.write("Mantenimiento y mitigación de escorrentías en la infraestructura ecológica de la Región Central:")
             col_v1, col_v2 = st.columns(2)
             with col_v1:
-                st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural (Erosión / Escorrentía)**")
-                try:
-                    st.video("data/Prog2_Vulnerabilidad.mp4") # Reemplazar con el nombre exacto de tus archivos de video cargados
-                except:
-                    st.info("Simulación del estado de degradación crítica actual de la ronda riparia.")
+                st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural**")
+                try: st.video("data/Prog2_Vulnerabilidad.mp4")
+                except: st.info("Simulación de erosión crítica actual de la ronda riparia.")
             with col_v2:
-                st.markdown("#### **🌱 Escenario B: Resiliencia Territorial mediante Infraestructura Verde**")
-                try:
-                    st.video("data/Prog2_Resiliencia.mp4")
-                except:
-                    st.success("Simulación de la funcionalidad ecohidrológica recuperada con SbN.")
-            st.markdown("---")
+                st.markdown("#### **🌱 Escenario B: Resiliencia Territorial con SbN**")
+                try: st.video("data/Prog2_Resiliencia.mp4")
+                except: st.success("Simulación de la funcionalidad ecohidrológica recuperada.")
+
+        elif "3.3" in programa_focus:
+            st.markdown("### 💻 Componente 3.3: Programa Escuela-Taller del Agua y la Biodiversidad (ETAB)")
+            col_et1, col_et2 = st.columns([9, 11])
+            with col_et1:
+                st.markdown("""
+                Formación avanzada y fortalecimiento de capacidades comunitarias en entornos rurales para promover la cultura del agua, la gobernanza hídrica y el intercambio de saberes tradicionales sobre los ciclos hidrológicos locales.
+                """)
+            with col_et2:
+                try: st.video("data/Escuelas_Taller.mp4")
+                except: st.warning("Subiendo archivo multimedia 'Escuelas_Taller.mp4'...")
         
+        # Acceso directo permanente al SIHCLIM
         st.markdown("""
-            <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: 10px; text-align: center;">
+            <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: 15px; text-align: center;">
                 <p style="margin: 0; font-size: 16px;">
                     🌐 <strong>Acceso Directo al Sistema de Información:</strong> El componente 1.3 orquesta los datos regionales en vivo. 
                     Puedes interactuar con el entorno de simulación entrando aquí: 
@@ -309,21 +329,17 @@ with tab_ruta:
         """, unsafe_allow_html=True)
 
     else:
+        # Modo de visualización tradicional por tablas
         col_l, col_f = st.columns(2)
         with col_l:
             opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
             filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l)
         with col_f:
-            filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"], default="Todas")
+            filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I", "Fase II", "Fase III"], default="Todas")
             
         df_ver = df_matriz.copy()
         if filtro_l != "Todas":
             df_ver = df_ver[df_ver["Línea Estratégica"] == filtro_l]
-            
-        if filtro_f == "Fase I (Comprender)": df_ver = df_ver[df_ver["Fase I"].isin(["●", "● ", " ●"])]
-        elif filtro_f == "Fase II (Acordar)": df_ver = df_ver[df_ver["Fase II"].isin(["●", "● ", " ●"])]
-        elif filtro_f == "Fase III (Hacer)": df_ver = df_ver[df_ver["Fase III"].isin(["●", "● ", " ●"])]
-        
         st.dataframe(df_ver, use_container_width=True, hide_index=True)
 
 # ==========================================
@@ -332,14 +348,14 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([7, 3])
+    col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
         ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True)
         fichas_map = {"Ficha 1 - Línea de Base": "P1", "Ficha 2 - Inteligencia": "P2", "Ficha 3 - Gobernanza": "P3", "Ficha 4 - Intervenciones": "P4", "Ficha 5 - Monitoreo": "P5"}
         
-        # 💥 RESPUESTA AL PUNTO 1: Caja de redimensionamiento estricto 'contenedor-ficha-fija' para congelar el tamaño
+        # Marco rígido e inamovible para estabilizar las 5 imágenes
         st.markdown('<div class="contenedor-ficha-fija">', unsafe_allow_html=True)
         try:
             st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
@@ -351,7 +367,6 @@ with tab_metas:
         st.markdown("#### **🌍 Alineación con Objetivos Globales**")
         st.write("Estructura escalada del Plan frente a las metas mundiales de sostenibilidad:")
         
-        # Caja de redimensionamiento estricto para mantener la proporción de la gota ODS
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
         try:
             st.image("data/ODS_CV.png", use_container_width=True)
