@@ -114,7 +114,7 @@ st.markdown('<p class="subtitulo-aleph">Plan Táctico de Seguridad Hídrica • 
 # 🌟 TU LEMA INSTITUCIONAL REFORZADO
 st.markdown("""
     <div class="lema-wow">
-        "Juntos, somos más sostenibles, más efectivos, más visibles, más seguros y más fuertes."
+        "Juntos, somos más sostenibles, más efectivos, más visibles, más seguros y más fuertes. MC De la Ossa Posada"
     </div>
 """, unsafe_allow_html=True)
 
