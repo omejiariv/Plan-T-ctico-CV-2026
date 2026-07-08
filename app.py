@@ -220,10 +220,11 @@ with tab_ruta:
 
     df_matriz = obtener_matriz_tecnica_limpia()
     
+    # VISTA 1: RENDERIZADO DEL SANKEY INTERACTIVO CORREGIDO
     if tipo_vista == "📊 Diagrama de Flujo (Sankey)":
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Ajuste del punto 4: Se añade el aviso del hipervínculo en el nombre del nodo del Dashboard
+        # Mapeo de Nodos del Sankey (Líneas -> Acciones -> Fases)
         nodos = [
             "Línea 1: Inteligencia", "Línea 2: Gobernanza", "Línea 3: Intervenciones",  
             "1.1 Pacto Info", "1.2 SIHT", "1.3 Dashboard (Clic abajo para abrir SIHCLI-POTER) 🌐",                           
@@ -237,13 +238,13 @@ with tab_ruta:
         values  = [1,1,1, 1,1, 1,1,1,  1,1,  1,1,  1,1,1,   1,  1,  1,1,1,  1,1,1,  1,1,1]
         
         fig_sankey = go.Figure(data=[go.Sankey(
+            # 💥 UBICACIÓN CORRECTA: textfont va en la raíz de go.Sankey, no dentro de node
+            textfont = dict(size = 15, family = "Montserrat", color = "#FFFFFF"),
             node = dict(
               pad = 18,
               thickness = 22,
               line = dict(color = "#38BDF8", width = 0.5),
               label = nodos,
-              # Ajuste del punto 2: Fuente del Sankey más grande (15px) y destacada
-              textfont = dict(size = 15, family = "Montserrat", color = "#FFFFFF"),
               color = ["#0284C7", "#F59E0B", "#10B981", "#38BDF8", "#38BDF8", "#60A5FA", "#FBBF24", "#F59E0B", "#34D399", "#10B981", "#059669", "#6366F1", "#A5B4FC", "#4338CA"]
             ),
             link = dict(
@@ -254,7 +255,7 @@ with tab_ruta:
           ))])
         
         fig_sankey.update_layout(
-            title_text="Mapeo de Flujo: Vinculación de Compromisos con Horizontes de Entrega Táctica [cite: 45]",
+            title_text="Mapeo de Flujo: Vinculación de Compromisos con Horizontes de Entrega Táctica",
             font_size=13,
             font_family="Montserrat",
             paper_bgcolor='rgba(0,0,0,0)',
@@ -263,7 +264,7 @@ with tab_ruta:
         )
         st.plotly_chart(fig_sankey, use_container_width=True)
         
-        # Ajuste del punto 4: Tarjeta interactiva de acceso directo para el nodo 1.3
+        # Tarjeta interactiva de acceso directo para el nodo 1.3
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: -10px; text-align: center;">
                 <p style="margin: 0; font-size: 16px;">
