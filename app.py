@@ -468,7 +468,7 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    col_fichas, col_ods = st.columns([10, 10])
+    col_fichas, col_ods = st.columns([7, 3])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
