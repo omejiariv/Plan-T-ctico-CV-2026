@@ -195,8 +195,8 @@ with tab_ruta:
 with tab_metas:
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
-    # 💥 RESPUESTA AL PUNTO 4: EQUILIBRIO Y SIMETRÍA PERFECTA EN COLUMNAS IDÉNTICAS (50% y 50%)
-    col_fichas, col_ods = st.columns([8, 8])
+    # 💥 RESPUESTA AL PUNTO 4: EQUILIBRIO Y SIMETRÍA PERFECTA EN COLUMNAS IDÉNTICAS (60% y 40%)
+    col_fichas, col_ods = st.columns([6, 4])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
