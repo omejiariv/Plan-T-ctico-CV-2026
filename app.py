@@ -172,7 +172,7 @@ if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
     with col_dim3:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #10B981; height: 100%; text-align:center;"><strong>3. Calidad Segura</strong><p style="font-size:13.5px !important; margin-top:5px;">Mitigar la sedimentación y cargas contaminantes en las microcuencas abastecedoras.</p></div>', unsafe_allow_html=True)
     with col_dim4:
-        st.markdown('<div class="card-glass" style="border-top: 3px solid #EF4444; height: 100%; text-align:center;"><strong>4. Riesgos Gestionados</strong><p style="font-size:13.5px !important; margin-top:5px;">Amortiguar los picos climáticos extremos de El Niño y La Niña mediante infraestructura verde.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #EF4444; height: 100%; text-align:center;"><strong>4. Riesgos Gestionados</strong><p style="font-size:13.5px !important; margin-top:5px;">Identificar, evaluar y mitigar los peligros que amenazan la disponibilidad, calidad y acceso al agua para proteger a la población, los ecosistemas y la economía frente a eventos extremos como sequías, inundaciones o contaminación severa.</p></div>', unsafe_allow_html=True)
     with col_dim5:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #F59E0B; height: 100%; text-align:center;"><strong>5. Resiliencia Colectiva Integral</strong><p style="font-size:13.5px !important; margin-top:5px;">Ruta metodológica clara hacia la seguridad hídrica y Climática con criterios socio-ecológicos.</p></div>', unsafe_allow_html=True)
     with col_dim6:
