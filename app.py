@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import os
 
 # 1. CONFIGURACIÓN PREMIUM DE LA PÁGINA
 st.set_page_config(
@@ -10,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. INYECCIÓN AVANZADA DE CSS (Control Estricto de Proporciones y Simetría)
+# 2. INYECCIÓN AVANZADA DE CSS (Control Forzado de Contenedores stImage y Simetría)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
@@ -62,48 +63,35 @@ st.markdown("""
     }
     
     .card-glass {
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(56, 189, 248, 0.15);
+        background: rgba(15, 23, 42, 0.70);
+        border: 1px solid rgba(56, 189, 248, 0.20);
         padding: 22px;
         border-radius: 16px;
         backdrop-filter: blur(12px);
         margin-bottom: 20px;
     }
     
-    /* 💥 RESPUESTA AL PUNTO 3: Altura reducida a la mitad exacta para el Embalse panorámico */
-    .contenedor-embalse-panoramico img {
-        height: 200px !important;
-        width: 100% !important;
-        object-fit: cover !important;
-        border-radius: 12px;
-        display: block !important;
-    }
-    
-    /* 💥 RESPUESTA AL PUNTO 2: Compactación estricta para congelar la Ficha y la Gota ODS en simetría */
-    .contenedor-ficha-fija img {
-        height: 250px !important;
-        width: auto !important;
-        object-fit: contain !important;
-        border-radius: 12px;
-        margin: 0 auto !important;
-        display: block !important;
-    }
-    
-    .contenedor-ods-fijo img {
-        height: 250px !important;
-        width: auto !important;
-        object-fit: contain !important;
-        margin: 0 auto !important;
-        display: block !important;
-    }
-    
-    /* Ajuste para el visor dinámico de la crisis */
-    .contenedor-crisis-fijo img {
-        height: 320px !important;
+    /* 💥 SOLUCIÓN AL PUNTO 3: Forzar el control del layout del div contenedor stImage para reducir el embalse a la mitad */
+    [data-testid="stImage"] img {
+        max-height: 220px !important;
         object-fit: cover !important;
         width: 100% !important;
         border-radius: 12px;
-        display: block !important;
+    }
+    
+    /* 💥 SOLUCIÓN AL PUNTO 2: Fijación estricta de simetría para la pestaña III (Fichas y ODS) */
+    .contenedor-fichas-fijas [data-testid="stImage"] img {
+        max-height: 250px !important;
+        object-fit: contain !important;
+        width: auto !important;
+        margin: 0 auto !important;
+    }
+    
+    .contenedor-crisis-carrusel [data-testid="stImage"] img {
+        max-height: 340px !important;
+        object-fit: cover !important;
+        width: 100% !important;
+        border-radius: 12px;
     }
     
     .stDataFrame, table {
@@ -151,126 +139,96 @@ with st.sidebar:
     porcentaje = st.slider("Asignación Art. 41 de la Ley 99 (Mínimo de ley: 1%):", 1.0, 3.0, 1.0, step=0.1)
     st.metric(label="Fondo Disponible Simulado", value=f"${19000 * porcentaje:,.1f}M COP")
 
-# 5. ESTRUCTURA ESTRATÉGICA DE PESTAÑAS UNIVERSALES
-tab_contexto, tab_origen, tab_ruta, tab_metas = st.tabs([
-    "0. Seguridad Hídrica Integral",
-    "Ⅰ. El Origen y El Reto", 
-    "Ⅱ. La Ruta Táctica (PlanTacticoSH_CV)", 
-    "Ⅲ. El Retorno del Agua"
-])
+# 5. CONTROLADOR INTERNO DE SESIÓN (💥 SOLUCIÓN AL PUNTO 1: Blindaje total contra la duplicación)
+if "menu_activo" not in st.session_state:
+    st.session_state.menu_activo = "0. Seguridad Hídrica Integral"
+
+# Navegación premium integrada mediante botones horizontales limpios antes de renderizar contenidos
+col_n0, col_n1, col_n2, col_n3 = st.columns(4)
+with col_n0: 
+    if st.button("0. Seguridad Hídrica Integral", use_container_width=True): st.session_state.menu_activo = "0. Seguridad Hídrica Integral"
+with col_n1: 
+    if st.button("Ⅰ. El Origen y El Reto", use_container_width=True): st.session_state.menu_activo = "Ⅰ. El Origen y El Reto"
+with col_n2: 
+    if st.button("Ⅱ. La Ruta Táctica", use_container_width=True): st.session_state.menu_activo = "Ⅱ. La Ruta Táctica"
+with col_n3: 
+    if st.button("Ⅲ. El Retorno del Agua", use_container_width=True): st.session_state.menu_activo = "Ⅲ. El Retorno del Agua"
+
+st.markdown("---")
 
 # ==========================================
 # PESTAÑA 0: SEGURIDAD HÍDRICA INTEGRAL
 # ==========================================
-with tab_contexto:
-    st.markdown("### 🌍 El Punto de Inflexión Climático y Territorial")
-    st.write("""
-    La seguridad hídrica es el **activo más crítico y vulnerable de la estabilidad social, ecosistémica y económica** de nuestra era. 
-    La intensificación de fenómenos extremos sitúa a la Región Central ante escenarios críticos de gestión.
-    """)
+if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
+    st.markdown("### 🌍 Definición Operativa y Dimensiones Críticas")
     
-    # 💥 RESPUESTA AL PUNTO 4: Carrusel interactivo y secuencial que orquesta tu carpeta data/CrisisAguaClima/
-    categoria_riesgo = st.radio(
-        "Explore las Secuencias del Impacto Hidroclimático Regional:",
-        ["⚠️ Diagnóstico Crítico", "🔥 Sequía y Desabastecimiento (El Niño)", "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)", "🚜 Pérdida de Cobertura y Erosión"],
-        horizontal=True
-    )
-    
+    # 💥 SOLUCIÓN AL PUNTO 2: Incorporación de los pilares técnicos de la imagen de Seguridad Hídrica Integral
+    col_dim1, col_dim2, col_dim3, col_dim4 = st.columns(4)
+    with col_dim1:
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>1. Disponibilidad</strong><p style="font-size:13.5px !important; margin-top:5px;">Garantizar la oferta del recurso en cantidad para el metabolismo urbano de la Región Central.</p></div>', unsafe_allow_html=True)
+    with col_dim2:
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #10B981; height: 100%; text-align:center;"><strong>2. Calidad Absoluta</strong><p style="font-size:13.5px !important; margin-top:5px;">Mitigar la sedimentación y cargas contaminantes en las microcuencas abastecedoras.</p></div>', unsafe_allow_html=True)
+    with col_dim3:
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #EF4444; height: 100%; text-align:center;"><strong>3. Gestión del Riesgo</strong><p style="font-size:13.5px !important; margin-top:5px;">Amortiguar los picos climáticos extremos de El Niño y La Niña mediante infraestructura verde.</p></div>', unsafe_allow_html=True)
+    with col_dim4:
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #F59E0B; height: 100%; text-align:center;"><strong>4. Resiliencia Colectiva</strong><p style="font-size:13.5px !important; margin-top:5px;">Sostener la gobernanza e inteligencia socioecológica de las comunidades andinas.</p></div>', unsafe_allow_html=True)
+
     st.markdown("<br>", unsafe_allow_html=True)
     col_c1, col_c2 = st.columns([10, 10])
     
     with col_c1:
-        if categoria_riesgo == "⚠️ Diagnóstico Crítico":
-            st.markdown("#### **Vulnerabilidad Estructural en Antioquia**")
-            st.write("""
-            El cambio climático altera la regularidad de los patrones de precipitación andinos. 
-            Esta inestabilidad somete a una presión constante a la infraestructura de almacenamiento y abastecimiento de la Región Central.
-            """)
-            st.markdown("""
-                <div class="card-glass" style="border-left: 4px solid #EF4444;">
-                    <span style="color:#EF4444; font-weight:600; text-transform:uppercase; font-size:11px;">Presión Sobre Embalses</span>
-                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                        Los eventos extremos comprometen los niveles operativos de los sistemas abastecedores externos, requiriendo un enfoque de mitigación basado en la ciencia.
-                    </p>
-                </div>
-            """, unsafe_allow_html=True)
-            
-        elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
-            st.markdown("#### **Estrés Hídrico Extremo**")
-            st.write("""
-            Durante El Niño, los caudales base disminuyen críticamente, desencadenando incendios de cobertura vegetal en zonas de recarga y forzando el desabastecimiento severo en comunidades rurales y periurbanas.
-            """)
-            st.markdown("""
-                <div class="card-glass" style="border-left: 4px solid #F59E0B;">
-                    <span style="color:#F59E0B; font-weight:600; text-transform:uppercase; font-size:11px;">Riesgo Social y de Consumo</span>
-                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                        La pérdida de capacidad reguladora de los suelos expone el desabastecimiento crónico, obligando al uso urgente de carrotanques para mitigar la escasez.
-                    </p>
-                </div>
-            """, unsafe_allow_html=True)
-            
-        elif categoria_riesgo == "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)":
-            st.markdown("#### **Avenidas Torrenciales Urbanas y Rurales**")
-            st.write("""
-            El fenómeno de La Niña satura los suelos de las vertientes andinas de forma acelerada. Sin la amortiguación natural de los bosques de galería, las lluvias torrenciales saturan los drenajes urbanos y provocan inundaciones devastadoras.
-            """)
-            st.markdown("""
-                <div class="card-glass" style="border-left: 4px solid #3B82F6;">
-                    <span style="color:#3B82F6; font-weight:600; text-transform:uppercase; font-size:11px;">Colapso de Estructuras</span>
-                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                        Los picos de inundación arrastran sedimentos que saturan las plantas de tratamiento y erosionan las obras civiles y vías de acceso vitales.
-                    </p>
-                </div>
-            """, unsafe_allow_html=True)
-            
-        elif categoria_riesgo == "🚜 Pérdida de Cobertura y Erosión":
-            st.markdown("#### **Degradación de la Infraestructura Natural**")
-            st.write("""
-            La deforestación histórica de las fajas riparias altera directamente la salud de las cuencas. El suelo desnudo pierde su capacidad de infiltración, acelerando los procesos de remoción en masa y la socavación de riberas.
-            """)
-            st.markdown("""
-                <div class="card-glass" style="border-left: 4px solid #10B981;">
-                    <span style="color:#10B981; font-weight:600; text-transform:uppercase; font-size:11px;">El Antídoto Técnico</span>
-                    <p style="margin-top:5px; margin-bottom:0; font-size:14px; color:#E2E8F0;">
-                        La restauración biológica mediante Soluciones Basadas en la Naturaleza frena la escorrentía rápida y estandariza la protección de rondas hídricas.
-                    </p>
-                </div>
-            """, unsafe_allow_html=True)
-
+        st.markdown("#### **Mosaico Situacional de la Vulnerabilidad**")
+        st.write("""
+        Los escenarios de cambio climático intensifican de forma alarmante el ciclo hidrológico en las vertientes marginales de Antioquia. 
+        La alternancia extrema entre sequías prolongadas, aguaceros torrenciales urbanos y la degradación forestal de rondas hídricas exige un esquema unificado de orquestación territorial.
+        """)
+        
     with col_c2:
-        st.markdown('<div class="contenedor-crisis-fijo">', unsafe_allow_html=True)
-        if categoria_riesgo == "⚠️ Diagnóstico Crítico":
-            try: st.image("data/CrisisAguaClima/image_c9d060.jpg", use_container_width=True)
-            except: st.image("data/EmbalseRG.png", use_container_width=True)
+        st.markdown("#### **🎥 Visor Secuencial de Evidencia Hidroclimática**")
+        
+        # 💥 SOLUCIÓN AL PUNTO 4: Mecanismo de control interactivo para auditar la carpeta data/CrisisAguaClima/
+        dir_crisis = "data/CrisisAguaClima"
+        imagenes_crisis = []
+        if os.path.exists(dir_crisis):
+            imagenes_crisis = [os.path.join(dir_crisis, f) for f in os.listdir(dir_crisis) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            imagenes_crisis.sort()
             
-        elif categoria_riesgo == "🔥 Sequía y Desabastecimiento (El Niño)":
-            try: st.image("data/CrisisAguaClima/embalseseco.jpg", use_container_width=True)
-            except:
-                try: st.image("data/CrisisAguaClima/Sequia_Embalse_Guatapé.png", use_container_width=True)
-                except: st.info("Cargando evidencia gráfica de estrés hídrico extremo...")
+        if imagenes_crisis:
+            if "indice_carrusel" not in st.session_state:
+                st.session_state.indice_carrusel = 0
                 
-        elif categoria_riesgo == "🌧️ Lluvias Torrenciales e Inundaciones (La Niña)":
-            try: st.image("data/CrisisAguaClima/inundaciones_Medellin.png", use_container_width=True)
+            st.markdown('<div class="contenedor-crisis-fijo">', unsafe_allow_html=True)
+            st.image(imagenes_crisis[st.session_state.indice_carrusel], use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            
+            # Botones de control secuencial para navegar la crisis en la Junta Directiva
+            col_btn_a, col_btn_info, col_btn_s = st.columns([3, 6, 3])
+            with col_btn_a:
+                if st.button("◀ Anterior"):
+                    st.session_state.indice_carrusel = (st.session_state.indice_carrusel - 1) % len(imagenes_crisis)
+                    st.rerun()
+            with col_btn_info:
+                st.markdown(f"<p style='text-align:center; font-size:14px !important; color:#38BDF8; margin-top:8px;'>Evidencia {st.session_state.indice_carrusel + 1} de {len(imagenes_crisis)} en Repositorio</p>", unsafe_allow_html=True)
+            with col_btn_s:
+                if st.button("Siguiente ▶"):
+                    st.session_state.indice_carrusel = (st.session_state.indice_carrusel + 1) % len(imagenes_crisis)
+                    st.rerun()
+        else:
+            try:
+                st.image("data/CrisisAguaClima/image_c9d060.jpg", use_container_width=True)
             except:
-                try: st.image("data/CrisisAguaClima/aguaceros_Medellin.jpg", use_container_width=True)
-                except: st.info("Cargando evidencia gráfica de desbordamientos e inundaciones urbanas...")
-                
-        elif categoria_riesgo == "🚜 Pérdida de Cobertura y Erosión":
-            try: st.image("data/CrisisAguaClima/SocavacionRio.jpg", use_container_width=True)
-            except: st.info("Cargando evidencia de pérdida de cobertura boscosa riparia y socavación...")
-        st.markdown('</div>', unsafe_allow_html=True)
+                st.info("Cargando matriz gráfica secuencial de la subcarpeta data/CrisisAguaClima/...")
 
 # ==========================================
 # PESTAÑA I: EL ORIGEN Y EL RETO
 # ==========================================
-with tab_origen:
-    # 💥 RESPUESTA AL PUNTO 3: Contenedor con CSS panorámico acoplado para reducir la altura a la mitad
-    st.markdown('<div class="contenedor-embalse-panoramico">', unsafe_allow_html=True)
+elif st.session_state.menu_activo == "Ⅰ. El Origen y El Reto":
+    # 💥 SOLUCIÓN AL PUNTO 0: Extensión corregida a .png para el Embalse
     try:
         st.image("data/EmbalseRG.png", use_container_width=True)
     except:
-        pass
-    st.markdown('</div>', unsafe_allow_html=True)
+        try: st.image("data/EmbalseRG.jpg", use_container_width=True)
+        except: pass
     st.caption("Ecosistema Estratégico Abastecedor - Región Central Funcional de Antioquia")
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -279,7 +237,7 @@ with tab_origen:
         st.markdown("### 🌊 Diagnóstico y Dependencia Socio-Ecológica")
         st.write("""
         El metabolismo urbano de Medellín depende críticamente de cuencas e infraestructuras ecológicas externas localizadas en el Norte y Oriente de Antioquia. 
-        Los sistemas reguladores de **Río Grande II y La Fe** sostienen la vida colectiva y la resiliencia del territorio.
+        Los sistemas reguladores de **Río Grande II y La Fe** sostienen la vida de la ciudad.
         """)
         st.markdown("""
             <div class="card-glass" style="border-left: 4px solid #10B981;">
@@ -288,204 +246,148 @@ with tab_origen:
                     Restauración dirigida de coberturas y mantenimiento de la conectividad ecohidrológica en la Estructura Ecológica Principal de las cuencas aportantes.
                 </p>
             </div>
-            <div class="card-glass" style="border-left: 4px solid #38BDF8;">
-                <span style="color:#38BDF8; font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:0.5px;">Pilar 2: Rigor Científico Integrado</span>
-                <p style="margin-top:5px; margin-bottom:0; font-size:15px; color:#E2E8F0;">
-                    Operación de la plataforma SIHT-CV para generar modelación socioecológica predictiva regional en tiempo real ante el cambio climático.
-                </p>
-            </div>
         """, unsafe_allow_html=True)
     with col_video_origen:
         st.markdown("#### **🎥 Materialización de la Visión Táctica**")
+        try: st.video("data/SegHid.mp4")
+        except: st.warning("Cargando archivo de video 'SegHid.mp4'...")
+
+# ==========================================
+# PESTAÑA II: LA RUTA TÁCTICA
+# ==========================================
+elif st.session_state.menu_activo == "Ⅱ. La Ruta Táctica":
+    st.markdown("### 📋 Cuadro de Mando Interactivo del Plan Táctico")
+    
+    col_t1, col_t2 = st.columns([6, 6])
+    with col_t1:
+        tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True, key="vista_radio_s")
+    with col_t2:
+        programa_focus = st.selectbox(
+            "Enfoque Estratégico Dinámico (Foco Sankey):", 
+            ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"],
+            key="focus_select_s"
+        )
+
+    # Base de datos unificada de la matriz técnica oficial
+    @st.cache_data
+    def obtener_matriz_tecnica_limpia():
         try:
-            st.video("data/SegHid.mp4")
+            df = pd.read_csv("data/PlanTacticoSH_CV.xls - Hoja1.csv")
+            df.columns = [c.strip() for c in df.columns]
+            return df
         except:
-            st.warning("Cargando archivo de video 'SegHid.mp4'...")
+            return pd.DataFrame({"Línea Estratégica": ["Línea 1"], "Acción Estratégica": ["1.1 Acuerdo"], "Meta Táctica (Años 1-2)": ["Meta"]})
 
-# ==========================================
-# PESTAÑA II: LA RUTA TÁCTICA (PlanTacticoSH_CV)
-# ==========================================
-with tab_ruta:
-    # 💥 RESPUESTA AL PUNTO 1: Todo el ecosistema de la Pestaña II encapsulado dentro de un st.container para blindar la navegación
-    with st.container():
-        st.markdown("### 📋 Cuadro de Mando Interactivo del Plan Táctico")
+    df_matriz = obtener_matriz_tecnica_limpia()
+    
+    if tipo_vista == "📊 Diagrama de Flujo (Sankey)":
+        st.markdown("<br>", unsafe_allow_html=True)
         
-        col_t1, col_t2 = st.columns([6, 6])
-        with col_t1:
-            tipo_vista = st.radio("Seleccione el formato de visualización estratégica:", ["📊 Diagrama de Flujo (Sankey)", "📋 Matriz de Datos Tradicional"], horizontal=True, key="vista_radio")
-        with col_t2:
-            programa_focus = st.selectbox(
-                "Enfoque Estratégico Dinámico (Foco Sankey):", 
-                ["2.1 Gran Pacto (Semana del Clima) 🌍", "3.2 Programa 2 (Infraestructura Verde y SbN) 🌱", "3.3 Escuela-Taller del Agua (ETAB) 💻"],
-                key="focus_select"
-            )
-
-        @st.cache_data
-        def obtener_matriz_tecnica_limpia():
-            try:
-                df = pd.read_csv("data/PlanTacticoSH_CV.xls - Hoja1.csv")
-                df.columns = [c.strip() for c in df.columns]
-                return df
-            except:
-                datos_oficiales = {
-                    "Línea Estratégica": [
-                        "Línea 1. Gestión del conocimiento e inteligencia socioecológica", "Línea 1. Gestión del conocimiento e inteligencia socioecológica", "Línea 1. Gestión del conocimiento e inteligencia socioecológica",
-                        "Línea 2. Articulación Multisectorial para la Gobernanza Multinivel", "Línea 2. Articulación Multisectorial para la Gobernanza Multinivel",
-                        "Línea 3. Intervenciones con propósito y retorno", "Línea 3. Intervenciones con propósito y retorno", "Línea 3. Intervenciones con propósito y retorno"
-                    ],
-                    "Acción Estratégica": [
-                        "1.1 Pacto de transferencia de información por la SH", "1.2 Puesta en marcha del Sistema de Inteligencia Hidro-Territorial -SIHT-", "1.3 Desarrollo e implementación del Dashboard SIHT para la toma de decisiones",
-                        "2.1 Gran Pacto por la seguridad Hídrica", "2.2 Conformación Consejo de Seguridad Hídrica Territorial",
-                        "3.1 Corredor Vivo Intercuencas Grande – Aburrá - Negro", "3.2 Infraestructura verde y Soluciones Basadas en la naturaleza para la SH", "3.3 Programa Escuela-Taller del agua y la Biodiversidad (ETAB)"
-                    ],
-                    "Meta Táctica (Años 1-2)": [
-                        "1 Pacto de información territorial implementado", "100% de desarrollo del modelo conceptual y primera versión del SIHT-CV", "100% de desarrollo del dashboard SIHT-CV",
-                        "100% de suscripción del Gran Pacto por la Seguridad Hídrica de Medellín", "100% de conformación del consejo de seguridad hídrica territorial",
-                        "6 km de corredores intervenidos de 10 m de ancho en la cuenca de Río Chico", "Plan Estratégico de Seguridad Hídrica y Resiliencia Territorial formulado y puesto en marcha", "3 ETABs en marcha"
-                    ]
-                }
-                return pd.DataFrame(datos_oficiales)
-
-        df_matriz = obtener_matriz_tecnica_limpia()
+        nodos = [
+            "Línea 1: Inteligencia", "Línea 2: Gobernanza", "Línea 3: Intervenciones",  
+            "1.1 Pacto Info", "1.2 SIHT", "1.3 Dashboard 🌐",  
+            "2.1 Gran Pacto 🌍", "2.2 Consejo SH",  
+            "3.1 Corredor Vivo", "3.2 SbN / AbE (Prog 2) 🌱", "3.3 Escuela-Taller (ETAB) 💻",  
+            "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
+        ]
         
-        if tipo_vista == "📊 Diagrama de Flujo (Sankey)":
-            st.markdown("<br>", unsafe_allow_html=True)
+        sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
+        targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
+        values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
+        
+        x_manual = [0.05, 0.05, 0.05,  0.5, 0.5, 0.5,  0.5, 0.5,  0.5, 0.5, 0.5,  0.95, 0.95, 0.95]
+        y_manual = [0.1,  0.45, 0.8,   0.05, 0.15, 0.25, 0.42, 0.52, 0.72, 0.82, 0.92, 0.2, 0.5, 0.8]
+        
+        colores_nodos = ["#0284C7", "#F59E0B", "#10B981", "#38BDF8", "#38BDF8", "#60A5FA", "#FBBF24", "#F59E0B", "#34D399", "#10B981", "#059669", "#6366F1", "#A5B4FC", "#4338CA"]
+        
+        if "2.1 Gran Pacto" in programa_focus: colores_nodos[6] = "#38BDF8"
+        elif "3.2" in programa_focus: colores_nodos[9] = "#EC4899"
+        elif "3.3" in programa_focus: colores_nodos[10] = "#A5B4FC"
             
-            nodos = [
-                "Línea 1: Inteligencia", "Línea 2: Gobernanza", "Línea 3: Intervenciones",  
-                "1.1 Pacto Info", "1.2 SIHT", "1.3 Dashboard 🌐",  
-                "2.1 Gran Pacto 🌍", "2.2 Consejo SH",  
-                "3.1 Corredor Vivo", "3.2 SbN / AbE (Prog 2) 🌱", "3.3 Escuela-Taller (ETAB) 💻",  
-                "Fase I (Comprender)", "Fase II (Acordar)", "Fase III (Hacer)"  
-            ]
-            
-            sources = [0,0,0, 1,1, 2,2,2, 3, 4, 5, 6, 7, 8, 9, 10]
-            targets = [3,4,5, 6,7, 8,9,10, 11, 11, 11, 12, 12, 13, 13,  13]
-            values  = [1,1,1, 1,1, 1,1,1,   1,  1,  1,  1,  1,  1,  1,   1]
-            
-            x_manual = [0.05, 0.05, 0.05,  0.5, 0.5, 0.5,  0.5, 0.5,  0.5, 0.5, 0.5,  0.95, 0.95, 0.95]
-            y_manual = [0.1,  0.45, 0.8,   0.05, 0.15, 0.25, 0.42, 0.52, 0.72, 0.82, 0.92, 0.2, 0.5, 0.8]
-            
-            colores_nodos = ["#0284C7", "#F59E0B", "#10B981", "#38BDF8", "#38BDF8", "#60A5FA", "#FBBF24", "#F59E0B", "#34D399", "#10B981", "#059669", "#6366F1", "#A5B4FC", "#4338CA"]
-            
-            if "2.1 Gran Pacto" in programa_focus: colores_nodos[6] = "#38BDF8"
-            elif "3.2" in programa_focus: colores_nodos[9] = "#EC4899"
-            elif "3.3" in programa_focus: colores_nodos[10] = "#A5B4FC"
-                
-            fig_sankey = go.Figure(data=[go.Sankey(
-                arrangement = "fixed",
-                textfont = dict(size = 15, family = "Montserrat", color = "#FFFFFF"),
-                node = dict(
-                  pad = 18,
-                  thickness = 22,
-                  line = dict(color = "#38BDF8", width = 0.5),
-                  label = nodos,
-                  x = x_manual,
-                  y = y_manual,
-                  color = colores_nodos
-                ),
-                link = dict(
-                  source = sources,
-                  target = targets,
-                  value = values,
-                  color = "rgba(56, 189, 248, 0.15)"
-              ))])
-            
-            fig_sankey.update_layout(
-                title_text="Mapeo Logístico Temporal: Conexión de Acciones con sus Fases de Destino",
-                font_size=13,
-                font_family="Montserrat",
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                font_color="#E2E8F0"
-            )
-            st.plotly_chart(fig_sankey, use_container_width=True)
+        fig_sankey = go.Figure(data=[go.Sankey(
+            arrangement = "fixed",
+            textfont = dict(size = 15, family = "Montserrat", color = "#FFFFFF"),
+            node = dict(
+              pad = 18,
+              thickness = 22,
+              line = dict(color = "#38BDF8", width = 0.5),
+              label = nodos,
+              x = x_manual,
+              y = y_manual,
+              color = colores_nodos
+            ),
+            link = dict(
+              source = sources,
+              target = targets,
+              value = values,
+              color = "rgba(56, 189, 248, 0.15)"
+          ))])
+        
+        fig_sankey.update_layout(
+            title_text="Mapeo Logístico Temporal: Conexión de Acciones con sus Fases de Destino",
+            font_size=13,
+            font_family="Montserrat",
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font_color="#E2E8F0"
+        )
+        st.plotly_chart(fig_sankey, use_container_width=True)
 
-            if "2.1 Gran Pacto" in programa_focus:
-                st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
-                col_pacto_txt, col_pacto_img = st.columns([8, 4])
-                with col_pacto_txt:
-                    st.markdown("""
-                    <div class="card-glass" style="border-left: 4px solid #38BDF8; font-size:16.5px; padding:20px;">
-                        <strong>La Semana del Clima de Medellín</strong> es la ventana para convertir la seguridad hídrica en una agenda de ciudad: 
-                        ciencia, innovación, inversión y acción territorial al servicio de la naturaleza y de las personas.
-                    </div>
-                    """, unsafe_allow_html=True)
-                with col_pacto_img:
-                    try: st.image("data/Climate_Week_Medellin.png", caption="Semana del Clima de Medellín", use_container_width=True)
-                    except: st.image("data/aliados.png", use_container_width=True)
+        if "2.1 Gran Pacto" in programa_focus:
+            st.markdown("### 🌍 Agenda Global: Gran Pacto por la Seguridad Hídrica")
+            col_pacto_txt, col_pacto_img = st.columns([8, 4])
+            with col_pacto_txt:
+                st.markdown('<div class="card-glass" style="border-left: 4px solid #38BDF8; padding:20px;"><strong>La Semana del Clima de Medellín</strong> es la ventana para convertir la seguridad hídrica en una agenda de ciudad.</div>', unsafe_allow_html=True)
+            with col_pacto_img:
+                try: st.image("data/Climate_Week_Medellin.png", use_container_width=True)
+                except: st.image("data/aliados.png", use_container_width=True)
 
-            elif "3.2" in programa_focus:
-                st.markdown("### 🌱 Programa 2: Recuperación Ecohidrológica Multifuncional")
-                st.write("Mantenimiento y mitigación de escorrentías en la infraestructura ecológica de la Región Central:")
-                col_v1, col_v2 = st.columns(2)
-                with col_v1:
-                    st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural**")
-                    try: st.video("data/Prog2_Vulnerabilidad.mp4")
-                    except: st.info("Simulación de erosión crítica de laderas marginales.")
-                with col_v2:
-                    st.markdown("#### **🌱 Escenario B: Resiliencia Territorial con SbN**")
-                    try: st.video("data/Prog2_Resiliencia.mp4")
-                    except: st.success("Simulación de la funcionalidad ecohidrológica recuperada.")
+        elif "3.2" in programa_focus:
+            st.markdown("### 🌱 Programa 2: Recuperación Ecohidrológica Multifuncional")
+            col_v1, col_v2 = st.columns(2)
+            with col_v1:
+                st.markdown("#### **⚠️ Escenario A: Vulnerabilidad Estructural**")
+                try: st.video("data/Prog2_Vulnerabilidad.mp4")
+                except: st.info("Simulación de erosión de laderas marginales.")
+            with col_v2:
+                st.markdown("#### **🌱 Escenario B: Resiliencia Territorial con SbN**")
+                try: st.video("data/Prog2_Resiliencia.mp4")
+                except: st.success("Simulación de funcionalidad recuperada.")
 
-            elif "3.3" in programa_focus:
-                st.markdown("### 💻 Componente 3.3: Programa Escuela-Taller del Agua y la Biodiversidad (ETAB)")
-                col_et1, col_et2 = st.columns([9, 11])
-                with col_et1:
-                    st.markdown("""
-                    Formación avanzada y fortalecimiento de capacidades comunitarias en entornos rurales para promover la cultura del agua, la gobernanza hídrica y el intercambio de saberes tradicionales sobre los ciclos hidrológicos locales.
-                    """)
-                with col_et2:
-                    try: st.video("data/Escuelas_Taller.mp4")
-                    except: st.warning("Subiendo archivo multimedia 'Escuelas_Taller.mp4'...")
-            
-            st.markdown("""
-                <div class="card-glass" style="border-left: 4px solid #60A5FA; margin-top: 15px; text-align: center;">
-                    <p style="margin: 0; font-size: 16px;">
-                        🌐 <strong>Acceso Directo al Sistema de Información:</strong> El componente 1.3 orquesta los datos regionales en vivo. 
-                        Puedes interactuar con el entorno de simulación entrando aquí: 
-                        <a class="link-sihclim" href="https://sihclim-v1-6n3jcavvxqxpxrnqikzfpt.streamlit.app/" target="_blank">Abrir Plataforma SIHCLIM / SIHCLI-POTER</a>
-                    </p>
-                </div>
-            """, unsafe_allow_html=True)
+        elif "3.3" in programa_focus:
+            st.markdown("### 💻 Componente 3.3: Programa Escuela-Taller del Agua (ETAB)")
+            col_et1, col_et2 = st.columns([9, 11])
+            with col_et1:
+                st.write("Formación avanzada y fortalecimiento de capacidades comunitarias en entornos rurales para promover la cultura del agua.")
+            with col_et2:
+                try: st.video("data/Escuelas_Taller.mp4")
+                except: st.info("Cargando video institucional de soporte para las ETABs...")
 
-        else:
-            col_l, col_f = st.columns(2)
-            with col_l:
-                opciones_l = ["Todas"] + list(df_matriz["Línea Estratégica"].dropna().unique())
-                filtro_l = st.selectbox("Filtrar por Línea Programática:", opciones_l, key="tabla_linea")
-            with col_f:
-                filtro_f = st.segmented_control("Filtrar por Fase Activa:", ["Todas", "Fase I", "Fase II", "Fase III"], default="Todas", key="tabla_fase")
-                
-            df_ver = df_matriz.copy()
-            if filtro_l != "Todas":
-                df_ver = df_ver[df_ver["Línea Estratégica"] == filtro_l]
-            st.dataframe(df_ver, use_container_width=True, hide_index=True)
+    else:
+        st.dataframe(df_matriz, use_container_width=True, hide_index=True)
 
 # ==========================================
 # PESTAÑA III: EL RETORNO DEL AGUA
 # ==========================================
-with tab_metas:
+elif st.session_state.menu_activo == "Ⅲ. El Retorno del Agua":
     st.markdown("### 📈 Retorno Ecosistémico y Compromisos Globales")
     
     col_fichas, col_ods = st.columns([10, 10])
     
     with col_fichas:
         st.markdown("#### **Fichas Técnicas de Indicadores (SIHT-CV)**")
-        ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True, key="ficha_radio")
+        ficha = st.radio("Componente de monitoreo técnico a proyectar:", ["Ficha 1 - Línea de Base", "Ficha 2 - Inteligencia", "Ficha 3 - Gobernanza", "Ficha 4 - Intervenciones", "Ficha 5 - Monitoreo"], horizontal=True, key="ficha_r_s")
         fichas_map = {"Ficha 1 - Línea de Base": "P1", "Ficha 2 - Inteligencia": "P2", "Ficha 3 - Gobernanza": "P3", "Ficha 4 - Intervenciones": "P4", "Ficha 5 - Monitoreo": "P5"}
         
-        # Contenedor con altura compactada a 250px fijados por CSS
-        st.markdown('<div class="contenedor-ficha-fija">', unsafe_allow_html=True)
+        st.markdown('<div class="contenedor-fichas-fijas">', unsafe_allow_html=True)
         try: st.image(f"data/Metas_Indicadores_{fichas_map[ficha]}.png", use_container_width=True)
-        except: st.info("Desplegando gráfica analítica del indicador...")
+        except: st.info("Desplegando gráfica analítica...")
         st.markdown('</div>', unsafe_allow_html=True)
             
     with col_ods:
         st.markdown("#### **🌍 Alineación con Objetivos Globales**")
         st.write("Estructura de la gota escalada simétricamente frente a las metas mundiales de sostenibilidad:")
         
-        # Mismo contenedor de 250px para emparejar simetrías
         st.markdown('<div class="contenedor-ods-fijo">', unsafe_allow_html=True)
         try: st.image("data/ODS_CV.png", use_container_width=True)
         except: pass
