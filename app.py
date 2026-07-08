@@ -149,7 +149,7 @@ with tab_origen:
     except:
         pass
 
-    col_text, col_video = st.columns([5, 10])
+    col_text, col_video = st.columns([6, 9])
     with col_text:
         st.markdown("### 🌊 Diagnóstico y Dependencia Socio-Ecológica")
         st.write("""
