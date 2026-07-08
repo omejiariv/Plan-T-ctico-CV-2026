@@ -166,7 +166,7 @@ if st.session_state.menu_activo == "0. Seguridad Hídrica Integral":
     col_dim1, col_dim2, col_dim3, col_dim4, col_dim5, col_dim6  = st.columns(6)
 
     with col_dim1:
-        st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>1. Integridad ecosistémica</strong><p style="font-size:13.5px !important; margin-top:5px;">La Region Central de Antioquia tiene la capacidad para automantenerse y autorregularse, conservando su composición de especies, estructura física y sus funciones naturales.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>1. Integridad ecosistémica</strong><p style="font-size:13.5px !important; margin-top:5px;">Capacidad para automantenerse y autorregularse, conservando su composición de especies, estructura física y sus funciones naturales.</p></div>', unsafe_allow_html=True)
     with col_dim2:
         st.markdown('<div class="card-glass" style="border-top: 3px solid #38BDF8; height: 100%; text-align:center;"><strong>1. Disponibilidad Confiable</strong><p style="font-size:13.5px !important; margin-top:5px;">Garantizar la oferta del recurso en cantidad para el metabolismo urbano de la Región Central.</p></div>', unsafe_allow_html=True)
     with col_dim3:
